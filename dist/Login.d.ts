@@ -1,8 +1,8 @@
 /// <reference types="react" />
 import './Login.css';
 interface ContainerProps {
-    showModal: boolean;
-    setShowModal: Function;
+    showModal?: boolean;
+    setShowModal?: Function;
     backdropDismiss?: boolean;
     profileFunction?: Function;
     providers?: string[];

@@ -15,8 +15,8 @@ import './Login.css';
 let supabaseAuthService: SupabaseAuthService;
 
 interface ContainerProps {
-    showModal: boolean;
-    setShowModal: Function;
+    showModal?: boolean;
+    setShowModal?: Function;
     backdropDismiss?: boolean;
     profileFunction?: Function;
     providers?: string[];
@@ -70,8 +70,15 @@ export const Login: React.FC<ContainerProps> = ({
         supabaseAuthService = SupabaseAuthService.getInstance(SUPABASE_URL, SUPABASE_KEY);
     }
 
-    supabaseAuthService.showLogin = showModal;
-	supabaseAuthService.setShowLogin = setShowModal;
+    const [localShowModal, localSetShowModal] = useState(showModal);
+
+    if (setShowModal) { // passed from parent
+        supabaseAuthService.showLogin = showModal;
+        supabaseAuthService.setShowLogin = setShowModal;    
+    } else {
+        supabaseAuthService.showLogin = localShowModal;
+        supabaseAuthService.setShowLogin = localSetShowModal;    
+    }
 
     const [showLoading, setShowLoading] = useState(false);
 

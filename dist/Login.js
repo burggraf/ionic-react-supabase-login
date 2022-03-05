@@ -92,16 +92,23 @@ export var Login = function (_a) {
     if (!supabaseAuthService) {
         supabaseAuthService = SupabaseAuthService.getInstance(SUPABASE_URL, SUPABASE_KEY);
     }
-    supabaseAuthService.showLogin = showModal;
-    supabaseAuthService.setShowLogin = setShowModal;
-    var _c = useState(false), showLoading = _c[0], setShowLoading = _c[1];
-    var _d = useState(null), user = _d[0], setUser = _d[1];
+    var _c = useState(showModal), localShowModal = _c[0], localSetShowModal = _c[1];
+    if (setShowModal) { // passed from parent
+        supabaseAuthService.showLogin = showModal;
+        supabaseAuthService.setShowLogin = setShowModal;
+    }
+    else {
+        supabaseAuthService.showLogin = localShowModal;
+        supabaseAuthService.setShowLogin = localSetShowModal;
+    }
+    var _d = useState(false), showLoading = _d[0], setShowLoading = _d[1];
+    var _e = useState(null), user = _e[0], setUser = _e[1];
     // const history = useHistory();
-    var _e = useState(false), signUpMode = _e[0], setSignUpMode = _e[1];
-    var _f = useIonToast(), present = _f[0], dismiss = _f[1];
-    var _g = useState(''), email = _g[0], setEmail = _g[1];
+    var _f = useState(false), signUpMode = _f[0], setSignUpMode = _f[1];
+    var _g = useIonToast(), present = _g[0], dismiss = _g[1];
+    var _h = useState(''), email = _h[0], setEmail = _h[1];
     // const [avatar, setAvatar] = useState('./assets/img/profile160x160.png');
-    var _h = useState(''), password = _h[0], setPassword = _h[1];
+    var _j = useState(''), password = _j[0], setPassword = _j[1];
     var toast = function (message, color) {
         if (color === void 0) { color = 'danger'; }
         present({
