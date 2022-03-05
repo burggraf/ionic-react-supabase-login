@@ -4,7 +4,7 @@ import { addIcons } from 'ionicons'
 import { logoApple, logoBitbucket, logoDiscord, logoFacebook, logoGithub, logoGitlab, logoGoogle, logoLinkedin, logoMicrosoft, logoSlack, logoTwitch, logoTwitter } from 'ionicons/icons'
 import { useState } from 'react'
 
-//import logoNotion from './notion.svg';
+// import logoNotion from './notion.svg';
 //import logoSpotify from './spotify.svg'
 // import { useHistory } from 'react-router'
 
@@ -20,7 +20,6 @@ interface ContainerProps {
 	SUPABASE_URL: string;
 	SUPABASE_KEY: string;
 }
-
 
 addIcons({
 	apple: logoApple,
@@ -93,7 +92,12 @@ const ProviderSignInButton: React.FC<ContainerProps> = ({ name, color, SUPABASE_
 				signInWithProvider(name as Provider)
 			}}>
 			{/* <b style={{textTransform: "uppercase"}}>{name}</b> */}
-			<IonIcon icon={name} size='large' slot="icon-only" />	
+			{ name.startsWith('./') && 
+				<IonIcon src={name}  size='large' slot="icon-only" />	
+			}
+			{ !name.startsWith('./') && 
+				<IonIcon icon={name}  size='large' slot="icon-only" />	
+			}
 		</IonButton>	
 		</>
 	)

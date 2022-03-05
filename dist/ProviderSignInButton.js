@@ -45,12 +45,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
+import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { IonButton, IonIcon, IonLoading, useIonToast } from '@ionic/react';
 import { addIcons } from 'ionicons';
 import { logoApple, logoBitbucket, logoDiscord, logoFacebook, logoGithub, logoGitlab, logoGoogle, logoLinkedin, logoMicrosoft, logoSlack, logoTwitch, logoTwitter } from 'ionicons/icons';
 import { useState } from 'react';
-//import logoNotion from './notion.svg';
+// import logoNotion from './notion.svg';
 //import logoSpotify from './spotify.svg'
 // import { useHistory } from 'react-router'
 import SupabaseAuthService from './supabase.auth.service';
@@ -122,7 +122,7 @@ var ProviderSignInButton = function (_a) {
             //onWillDismiss: () => console.log('will dismiss'),
         });
     };
-    return (_jsxs(_Fragment, { children: [_jsx(IonLoading, { isOpen: showLoading, message: 'Loading' }), _jsx(IonButton
+    return (_jsxs(_Fragment, { children: [_jsx(IonLoading, { isOpen: showLoading, message: 'Loading' }), _jsxs(IonButton
             // expand='block'
             // color='primary'
             , __assign({ 
@@ -130,6 +130,8 @@ var ProviderSignInButton = function (_a) {
                 // color='primary'
                 fill: 'clear', className: 'round-button', style: { margin: '8px', color: color || 'primary' }, onClick: function () {
                     signInWithProvider(name);
-                } }, { children: _jsx(IonIcon, { icon: name, size: 'large', slot: "icon-only" }) }))] }));
+                } }, { children: [name.startsWith('./') &&
+                        _jsx(IonIcon, { src: name, size: 'large', slot: "icon-only" }), !name.startsWith('./') &&
+                        _jsx(IonIcon, { icon: name, size: 'large', slot: "icon-only" })] }))] }));
 };
 export default ProviderSignInButton;
