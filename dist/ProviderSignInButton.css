@@ -1,0 +1,15 @@
+.flex-child {
+    /* flex: 1; */
+    /* border: 2px solid yellow; */
+    /* margin: 15px; */
+    margin: 2% 5% 2%
+    /* margin: 0 1% 20px; */
+}  
+
+/* .flex-child:first-child {
+    margin-right: 20px;
+}  */
+.round-button {
+    --border-radius: 50%;
+    --box-shadow: var(--ion-BOXSHADOW);/*5px 5px 15px 5px rgba(0,0,0,0.25);*/
+}

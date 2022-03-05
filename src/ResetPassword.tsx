@@ -2,21 +2,21 @@ import { IonBackButton, IonButton, IonButtons, IonCol, IonContent, IonGrid, IonH
 import { checkmark } from 'ionicons/icons';
 import { useState } from 'react';
 import { useParams } from 'react-router';
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 
-import StartupService from '../services/startup.service';
+// import StartupService from '../services/startup.service';
 import SupabaseAuthService from './supabase.auth.service';
 
 import './ResetPassword.css';
 
-const startupService = StartupService.getInstance();
-const defaultRoute = startupService.getDefaultRoute();
+// const startupService = StartupService.getInstance();
+// const defaultRoute = startupService.getDefaultRoute();
 
 
 const supabaseAuthService = SupabaseAuthService.getInstance();
 
 const ResetPassword: React.FC = () => {
-    const history = useHistory();
+    // const history = useHistory();
     const { token } = useParams<{ token: string; }>();
     
     const [present, dismiss] = useIonToast();
@@ -33,7 +33,7 @@ const ResetPassword: React.FC = () => {
           })
     }
     const updatePassword = async () => {
-        const { data, error }  = 
+        const { /*data,*/ error }  = 
             await supabaseAuthService.updatePassword(token, password);
         if (error) { toast(error.message) }
         else { 
@@ -45,7 +45,8 @@ const ResetPassword: React.FC = () => {
                 duration: 6000,
                 onDidDismiss: () => {
                     // history.push(defaultRoute);
-                    history.replace(defaultRoute);
+                    // history.replace(defaultRoute);
+                    window.location.href = '/';
                 },
                 //onWillDismiss: () => console.log('will dismiss'),
               })                

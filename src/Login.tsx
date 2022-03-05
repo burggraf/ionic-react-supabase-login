@@ -2,14 +2,15 @@ import { IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon,
 import { User } from '@supabase/supabase-js'
 import { arrowForwardOutline, closeOutline, link, lockClosedOutline, lockOpenOutline, logInOutline, logInSharp, logOutOutline, logOutSharp, mailOutline, personAdd, personOutline, personSharp } from 'ionicons/icons';
 import { useEffect, useState } from 'react';
-// import { useTranslation } from 'react-i18next';
-import { useHistory } from 'react-router';
+// import { useHistory } from 'react-i18next';
+// import { useHistory } from 'react-router';
 
 import ProviderSignInButton from './ProviderSignInButton';
 import SupabaseAuthService from './supabase.auth.service';
 
 // import '../translations/i18n'
 import './Login.css';
+
 let supabaseAuthService: SupabaseAuthService;
 
 interface ContainerProps {
@@ -74,11 +75,11 @@ const Login: React.FC<ContainerProps> = ({
     const [showLoading, setShowLoading] = useState(false);
 
     const [user, setUser] = useState<User | null>(null)
-    const history = useHistory();
+    // const history = useHistory();
     const [signUpMode, setSignUpMode] = useState(false);
     const [present, dismiss] = useIonToast();
     const [email, setEmail] = useState('');
-	const [avatar, setAvatar] = useState('./assets/img/profile160x160.png');
+	// const [avatar, setAvatar] = useState('./assets/img/profile160x160.png');
     const [password, setPassword] = useState('');
     const toast = (message: string, color: string = 'danger') => {
         present({
@@ -110,21 +111,21 @@ const Login: React.FC<ContainerProps> = ({
     const signUp = async () => {
         setShowLoading(true);
 
-        const {user, session, error} = 
+        const {/*user, session,*/ error} = 
             await supabaseAuthService.signUpWithEmail(email, password);
             if (error) { console.error(error); setShowLoading(false);toast(error.message) }
             else { setShowLoading(false);toast('Please check your email for a confirmation link', 'success') }
         }
     const resetPassword = async () => {
         setShowLoading(true);
-        const {data, error} = 
+        const {/*data,*/ error} = 
             await supabaseAuthService.resetPassword(email);
             if (error) { setShowLoading(false);toast(error.message) }
             else { setShowLoading(false);toast('Please check your email for a password reset link', 'success') }
         }
     const sendMagicLink = async () => {
         setShowLoading(true);
-        const {user, session, error} = 
+        const {/*user, session,*/ error} = 
             await supabaseAuthService.sendMagicLink(email);
             if (error) { setShowLoading(false);toast(error.message) }
             else { setShowLoading(false);toast('Please check your email for a sign in link', 'success') }
@@ -285,14 +286,14 @@ const Login: React.FC<ContainerProps> = ({
             </IonRow>
         </IonGrid>
 
-        <div onClick={() => { history.push('/privacy')}}
+        {/* <div onClick={() => { history.push('/privacy')}}
             className="ion-text-center" style={{marginTop: '10px', marginBottom: '30px'}}>
             <IonLabel>View our privacy policy</IonLabel>
         </div>
         <div onClick={() => { history.push('/terms')}}
             className="ion-text-center" style={{marginBottom: '60px'}}>
             <IonLabel>View our terms of service</IonLabel>
-        </div>
+        </div> */}
         
 
       </IonContent>

@@ -1,27 +1,18 @@
-import { IonButton, IonCol, IonGrid, IonIcon, IonLoading, IonRow, useIonToast } from '@ionic/react'
-import {
-	logoApple,
-	logoBitbucket,
-	logoDiscord,
-	logoFacebook,
-	logoGithub,
-	logoGitlab,
-	logoGoogle,
-	logoLinkedin,
-	logoMicrosoft,
-	logoSlack,
-	logoTwitch,
-	logoTwitter,
-} from 'ionicons/icons'
-import logoSpotify from '../Login/auth-provider-icons/spotify.svg'
-import logoNotion from '../Login/auth-provider-icons/notion.svg'
-import logoZoom from '../Login/auth-provider-icons/zoom.svg'
-import { addIcons } from 'ionicons'
-import './ProviderSignInButton.css'
-import SupabaseAuthService from './supabase.auth.service'
+import { IonButton, IonIcon, IonLoading, useIonToast } from '@ionic/react'
 import { Provider } from '@supabase/supabase-js'
-import { useHistory } from 'react-router'
+import { addIcons } from 'ionicons'
+import { logoApple, logoBitbucket, logoDiscord, logoFacebook, logoGithub, logoGitlab, logoGoogle, logoLinkedin, logoMicrosoft, logoSlack, logoTwitch, logoTwitter } from 'ionicons/icons'
 import { useState } from 'react'
+
+//import logoNotion from './notion.svg';
+//import logoSpotify from './spotify.svg'
+// import { useHistory } from 'react-router'
+
+import SupabaseAuthService from './supabase.auth.service'
+
+//import logoZoom from './zoom.svg'
+
+import './ProviderSignInButton.css'
 
 interface ContainerProps {
 	name: string;
@@ -41,9 +32,9 @@ addIcons({
 	twitch: logoTwitch,
 	twitter: logoTwitter,
 	slack: logoSlack,
-	spotify: logoSpotify,
-	notion: logoNotion,
-	zoom: logoZoom,
+	spotify: './spotify.svg', // logoSpotify,
+	notion: './notion.svg', // logoNotion,
+	zoom: './zoom.svg', // logoZoom,
 	microsoft: logoMicrosoft,
 	azure: logoMicrosoft,
 	linkedin: logoLinkedin
@@ -52,8 +43,8 @@ addIcons({
 const ProviderSignInButton: React.FC<ContainerProps> = ({ name, color }) => {
 	const [showLoading, setShowLoading] = useState(false);
 
-	const nameProperCase = name.charAt(0).toUpperCase() + name.slice(1)
-	const history = useHistory()
+	// const nameProperCase = name.charAt(0).toUpperCase() + name.slice(1)
+	// const history = useHistory()
 	const signInWithProvider = async (provider: Provider) => {
 		const { user, session, error } = await supabaseAuthService.signInWithProvider(provider);
 		console.log('user', user)

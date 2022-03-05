@@ -27,7 +27,7 @@ export default class SupabaseAuthService {
   public user = new BehaviorSubject<User | null>(null);
   public profile = new BehaviorSubject<any>(null);
   private _user: User | null = null;
-  private _profile: any = null;
+  // private _profile: any = null;
   public static subscription: any = null;
   
   constructor() {
@@ -68,11 +68,11 @@ export default class SupabaseAuthService {
       if (error) {
         console.error('loadProfile error: ', error);
       } else {
-        this._profile = data;
+        // this._profile = data;
         this.profile.next(data);
       }
     } else {
-      this._profile = null;
+      // this._profile = null;
       this.profile.next(null);
     }
   }
