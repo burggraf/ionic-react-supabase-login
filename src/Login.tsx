@@ -280,7 +280,7 @@ export const Login: React.FC<ContainerProps> = ({
                 <IonCol>
                     {providers?.map(provider => {
                         return (
-                        <ProviderSignInButton key={`provider-${provider}`} name={provider} color={logoColors[provider] || 'black'} />
+                        <ProviderSignInButton SUPABASE_URL={SUPABASE_URL} SUPABASE_KEY={SUPABASE_KEY} key={`provider-${provider}`} name={provider} color={logoColors[provider] || 'black'} />
                         )
                     })} 
             </IonCol>

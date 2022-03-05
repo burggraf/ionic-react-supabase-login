@@ -11,5 +11,5 @@ interface ContainerProps {
     SUPABASE_URL: string;
     SUPABASE_KEY: string;
 }
-declare const Login: React.FC<ContainerProps>;
-export default Login;
+export declare const Login: React.FC<ContainerProps>;
+export {};

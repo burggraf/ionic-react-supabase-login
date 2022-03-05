@@ -17,9 +17,10 @@ import './ProviderSignInButton.css'
 interface ContainerProps {
 	name: string;
 	color?: string;
+	SUPABASE_URL: string;
+	SUPABASE_KEY: string;
 }
 
-const supabaseAuthService = SupabaseAuthService.getInstance()
 
 addIcons({
 	apple: logoApple,
@@ -39,10 +40,13 @@ addIcons({
 	azure: logoMicrosoft,
 	linkedin: logoLinkedin
 })
+let supabaseAuthService: SupabaseAuthService;
 
-const ProviderSignInButton: React.FC<ContainerProps> = ({ name, color }) => {
+const ProviderSignInButton: React.FC<ContainerProps> = ({ name, color, SUPABASE_URL, SUPABASE_KEY }) => {
 	const [showLoading, setShowLoading] = useState(false);
-
+	if (!supabaseAuthService) {
+		supabaseAuthService = SupabaseAuthService.getInstance(SUPABASE_URL, SUPABASE_KEY);
+	}
 	// const nameProperCase = name.charAt(0).toUpperCase() + name.slice(1)
 	// const history = useHistory()
 	const signInWithProvider = async (provider: Provider) => {

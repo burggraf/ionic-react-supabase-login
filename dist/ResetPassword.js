@@ -57,7 +57,7 @@ import './ResetPassword.css';
 // const startupService = StartupService.getInstance();
 // const defaultRoute = startupService.getDefaultRoute();
 var supabaseAuthService = SupabaseAuthService.getInstance();
-var ResetPassword = function () {
+export var ResetPassword = function () {
     // const history = useHistory();
     var token = useParams().token;
     var _a = useIonToast(), present = _a[0], dismiss = _a[1];
@@ -106,4 +106,3 @@ var ResetPassword = function () {
     return (_jsxs(IonPage, { children: [_jsx(IonHeader, { children: _jsxs(IonToolbar, { children: [_jsx(IonButtons, __assign({ slot: "start" }, { children: _jsx(IonBackButton, { defaultHref: "/page" }) })), _jsx(IonTitle, { children: "Reset Password" })] }) }), _jsxs(IonContent, __assign({ fullscreen: true }, { children: [_jsx(IonHeader, __assign({ collapse: "condense" }, { children: _jsx(IonToolbar, { children: _jsx(IonTitle, __assign({ size: "large" }, { children: "Reset Password" })) }) })), _jsxs(IonGrid, __assign({ class: "ion-padding" }, { children: [_jsx(IonRow, { children: _jsx(IonCol, { children: _jsx(IonLabel, { children: _jsx("b", { children: "New Password" }) }) }) }), _jsx(IonRow, { children: _jsx(IonCol, { children: _jsx(IonInput, { type: "password", placeholder: "Enter your new password", onIonChange: function (e) { return setPassword(e.detail.value); }, value: password, class: "inputBox" }) }) }), password.length > 0 && password.length < 6 &&
                                 _jsx(IonRow, { children: _jsx(IonCol, { children: _jsx(IonLabel, __assign({ color: "danger" }, { children: _jsx("b", { children: "Password too short" }) })) }) }), _jsx(IonRow, { children: _jsx(IonCol, { children: _jsxs(IonButton, __assign({ expand: "block", disabled: password.length < 6, onClick: updatePassword }, { children: [_jsx(IonIcon, { icon: checkmark, size: "large" }), "\u00A0\u00A0", _jsx("b", { children: "Save New Password" })] })) }) })] }))] }))] }));
 };
-export default ResetPassword;

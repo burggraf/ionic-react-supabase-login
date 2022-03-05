@@ -1,4 +1,3 @@
 /// <reference types="react" />
 import './ResetPassword.css';
-declare const ResetPassword: React.FC;
-export default ResetPassword;
+export declare const ResetPassword: React.FC;

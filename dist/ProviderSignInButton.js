@@ -56,7 +56,6 @@ import { useState } from 'react';
 import SupabaseAuthService from './supabase.auth.service';
 //import logoZoom from './zoom.svg'
 import './ProviderSignInButton.css';
-var supabaseAuthService = SupabaseAuthService.getInstance();
 addIcons({
     apple: logoApple,
     bitbucket: logoBitbucket,
@@ -75,9 +74,13 @@ addIcons({
     azure: logoMicrosoft,
     linkedin: logoLinkedin
 });
+var supabaseAuthService;
 var ProviderSignInButton = function (_a) {
-    var name = _a.name, color = _a.color;
+    var name = _a.name, color = _a.color, SUPABASE_URL = _a.SUPABASE_URL, SUPABASE_KEY = _a.SUPABASE_KEY;
     var _b = useState(false), showLoading = _b[0], setShowLoading = _b[1];
+    if (!supabaseAuthService) {
+        supabaseAuthService = SupabaseAuthService.getInstance(SUPABASE_URL, SUPABASE_KEY);
+    }
     // const nameProperCase = name.charAt(0).toUpperCase() + name.slice(1)
     // const history = useHistory()
     var signInWithProvider = function (provider) { return __awaiter(void 0, void 0, void 0, function () {

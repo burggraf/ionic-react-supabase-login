@@ -1,6 +1,6 @@
 {
   "name": "ionic-react-supabase-login",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Modal login component for Ionic React Framework and Supabase Authentication",
   "homepage": "https://github.com/burggraf/ionic-react-supabase-login",
   "main": "dist/index.js",
