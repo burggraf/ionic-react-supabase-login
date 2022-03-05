@@ -32,9 +32,9 @@ addIcons({
 	twitch: logoTwitch,
 	twitter: logoTwitter,
 	slack: logoSlack,
-	spotify: './spotify.svg', // logoSpotify,
-	notion: './notion.svg', // logoNotion,
-	zoom: './zoom.svg', // logoZoom,
+	spotify: 'node_modules/ionic-react-supabase-login/dist/spotify.svg', // logoSpotify,
+	notion: 'node_modules/ionic-react-supabase-login/dist/notion.svg', // logoNotion,
+	zoom: 'node_modules/ionic-react-supabase-login/dist/zoom.svg', // logoZoom,
 	microsoft: logoMicrosoft,
 	azure: logoMicrosoft,
 	linkedin: logoLinkedin
@@ -92,10 +92,10 @@ const ProviderSignInButton: React.FC<ContainerProps> = ({ name, color, SUPABASE_
 				signInWithProvider(name as Provider)
 			}}>
 			{/* <b style={{textTransform: "uppercase"}}>{name}</b> */}
-			{ name.startsWith('./') && 
+			{ (name.startsWith('node_modules')) && 
 				<IonIcon src={name}  size='large' slot="icon-only" />	
 			}
-			{ !name.startsWith('./') && 
+			{ (!name.startsWith('node_modules')) && 
 				<IonIcon icon={name}  size='large' slot="icon-only" />	
 			}
 		</IonButton>	

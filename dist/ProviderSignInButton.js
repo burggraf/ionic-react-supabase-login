@@ -67,9 +67,9 @@ addIcons({
     twitch: logoTwitch,
     twitter: logoTwitter,
     slack: logoSlack,
-    spotify: './spotify.svg',
-    notion: './notion.svg',
-    zoom: './zoom.svg',
+    spotify: 'node_modules/ionic-react-supabase-login/dist/spotify.svg',
+    notion: 'node_modules/ionic-react-supabase-login/dist/notion.svg',
+    zoom: 'node_modules/ionic-react-supabase-login/dist/zoom.svg',
     microsoft: logoMicrosoft,
     azure: logoMicrosoft,
     linkedin: logoLinkedin
@@ -130,8 +130,8 @@ var ProviderSignInButton = function (_a) {
                 // color='primary'
                 fill: 'clear', className: 'round-button', style: { margin: '8px', color: color || 'primary' }, onClick: function () {
                     signInWithProvider(name);
-                } }, { children: [name.startsWith('./') &&
-                        _jsx(IonIcon, { src: name, size: 'large', slot: "icon-only" }), !name.startsWith('./') &&
+                } }, { children: [(name.startsWith('node_modules')) &&
+                        _jsx(IonIcon, { src: name, size: 'large', slot: "icon-only" }), (!name.startsWith('node_modules')) &&
                         _jsx(IonIcon, { icon: name, size: 'large', slot: "icon-only" })] }))] }));
 };
 export default ProviderSignInButton;
