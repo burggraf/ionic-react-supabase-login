@@ -274,9 +274,11 @@ export const Login: React.FC<ContainerProps> = ({
                 </IonCol>
             </IonRow>
         </IonGrid>
-        <div className="ion-text-center">
-        <IonLabel>or, sign in with:</IonLabel>
-        </div>
+        { providers &&
+            <div className="ion-text-center">
+            <IonLabel>or, sign in with:</IonLabel>
+            </div>
+        }
         <IonGrid class="ion-padding ion-text-center" style={{maxWidth: '375px'}}>
             <IonRow>
                 <IonCol>
