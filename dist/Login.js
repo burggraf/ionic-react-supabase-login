@@ -115,6 +115,19 @@ export var Login = function (_a) {
             //onWillDismiss: () => console.log('will dismiss'),
         });
     };
+    var loadUser = function () { return __awaiter(void 0, void 0, void 0, function () {
+        var user;
+        return __generator(this, function (_a) {
+            user = SupabaseAuthService.supabase.auth.user();
+            if (user) {
+                setLocalUser(user);
+                if (setUser) {
+                    setUser(user);
+                }
+            }
+            return [2 /*return*/];
+        });
+    }); };
     var signInWithEmail = function () { return __awaiter(void 0, void 0, void 0, function () {
         var _a, user, session, error;
         return __generator(this, function (_b) {
@@ -212,6 +225,7 @@ export var Login = function (_a) {
     }); };
     useEffect(function () {
         // Only run this one time!  No multiple subscriptions!
+        loadUser();
         supabaseAuthService.user.subscribe(function (user) {
             setLocalUser(user);
             if (setUser) {

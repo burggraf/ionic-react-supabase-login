@@ -96,6 +96,17 @@ export const Login: React.FC<ContainerProps> = ({
             //onWillDismiss: () => console.log('will dismiss'),
           })
     }
+
+    const loadUser = async() =>{
+        const user = SupabaseAuthService.supabase.auth.user();
+        if (user) {
+            setLocalUser(user);
+            if (setUser) {
+                setUser(user);
+            }
+        }
+      };
+    
     const signInWithEmail = async () => {
         setShowLoading(true);
 
@@ -139,6 +150,7 @@ export const Login: React.FC<ContainerProps> = ({
     }
 	useEffect(() => {
 		// Only run this one time!  No multiple subscriptions!
+        loadUser();
 		supabaseAuthService.user.subscribe((user: User | null) => {
             setLocalUser(user);
             if (setUser) {
