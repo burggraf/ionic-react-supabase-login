@@ -15,8 +15,8 @@ import './Login.css';
 let supabaseAuthService: SupabaseAuthService;
 
 interface ContainerProps {
-    showModal?: boolean;
-    setShowModal?: Function;
+    // showModal?: boolean;
+    // setShowModal?: Function;
     backdropDismiss?: boolean;
     profileFunction?: Function;
     providers?: string[];
@@ -57,7 +57,7 @@ const validateEmail = (email: string) => {
     return re.test(String(email).toLowerCase());
 }
 export const Login: React.FC<ContainerProps> = ({
-    showModal, setShowModal, backdropDismiss = false, 
+    backdropDismiss = false, 
     profileFunction, providers, onSignIn, onSignOut, SUPABASE_URL, SUPABASE_KEY
 }) => {
     // const { t } = useTranslation()
@@ -70,11 +70,7 @@ export const Login: React.FC<ContainerProps> = ({
         supabaseAuthService = SupabaseAuthService.getInstance(SUPABASE_URL, SUPABASE_KEY);
     }
 
-    const [localShowModal, localSetShowModal] = useState(showModal);
-    if (typeof setShowModal === 'undefined') {
-        showModal = localShowModal;
-        setShowModal = localSetShowModal;
-    }
+    const [showModal, setShowModal] = useState(false);
 
     supabaseAuthService.showLogin = showModal;
     supabaseAuthService.setShowLogin = setShowModal;    
@@ -109,9 +105,7 @@ export const Login: React.FC<ContainerProps> = ({
         else { 
             // window.location.href = '/';
             setShowLoading(false);
-            if (setShowModal) {
-                setShowModal(false);
-            }
+            setShowModal(false);
             if (onSignIn) {
                 onSignIn(user, session);
             }
@@ -169,7 +163,7 @@ export const Login: React.FC<ContainerProps> = ({
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
-            <IonButton color='primary' onClick={() => setShowModal ? setShowModal(false) : null}>
+            <IonButton color='primary' onClick={() => setShowModal(false)}>
                     <IonIcon size='large' icon={closeOutline}></IonIcon>
             </IonButton>
           </IonButtons>
@@ -308,7 +302,7 @@ export const Login: React.FC<ContainerProps> = ({
       </IonContent>
     </IonModal>
     {!user && (
-        <IonItem lines='none' detail={false} onClick={() => setShowModal ? setShowModal(true) : null}>
+        <IonItem lines='none' detail={false} onClick={() => setShowModal(true)}>
             <IonIcon slot='start' ios={logInOutline} md={logInSharp}></IonIcon>
             <div style={{width: '100%'}}>
                 <IonButton fill='outline' color='dark'
