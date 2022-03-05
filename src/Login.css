@@ -1,0 +1,50 @@
+input:-webkit-autofill {
+    /* height: 0px; */
+    /* -webkit-box-shadow:0 0 0 10px var(--ion-color-FORCECLEAR) inset; */
+    -webkit-text-fill-color: var(--ion-color-FORCEDARK);
+    font-weight: 500px;
+}
+
+input:-webkit-autofill:focus {
+    /* height: 0px; */
+    /* -webkit-box-shadow: 0 0 0 10px var(--ion-color-FORCECLEAR) inset; */
+    -webkit-text-fill-color: var(--ion-color-FORCEDARK);
+    font-weight: 500px;
+} 
+
+
+.inputIcon {
+    margin-left: 10px;
+    margin-right: 10px
+}
+
+.loginItem {
+    --padding-start: 0px;
+    --padding-end: 0px;
+    --inner-padding-end: 0px;
+}
+.loginInputBoxWithIcon {
+    height: 50px;
+    border: 1px solid rgb(212, 212, 212);
+    background-color: var(--ion-background-color) !important;
+    /* border-bottom: 1px solid hsl(0, 0%, 83%); */
+    border-radius: 5px;
+}
+.toast {
+    font-weight: bold;
+}
+.flex-container {
+    display: flex;
+    display: -webkit-flex;
+    display: -moz-flex;
+    flex-flow: row wrap;
+    -webkit-flex-flow: row wrap;
+    -moz-flex-flow: row wrap;
+    justify-content: center;
+
+    /* flex-wrap: wrap; */
+    /* border: 1px solid; */
+
+    /* margin-right: 10px;
+    margin-left: 10px; */
+}
