@@ -71,14 +71,13 @@ export const Login: React.FC<ContainerProps> = ({
     }
 
     const [localShowModal, localSetShowModal] = useState(showModal);
-
-    if (setShowModal) { // passed from parent
-        supabaseAuthService.showLogin = showModal;
-        supabaseAuthService.setShowLogin = setShowModal;    
-    } else {
-        supabaseAuthService.showLogin = localShowModal;
-        supabaseAuthService.setShowLogin = localSetShowModal;    
+    if (typeof setShowModal === 'undefined') {
+        showModal = localShowModal;
+        setShowModal = localSetShowModal;
     }
+
+    supabaseAuthService.showLogin = showModal;
+    supabaseAuthService.setShowLogin = setShowModal;    
 
     const [showLoading, setShowLoading] = useState(false);
 
@@ -110,7 +109,9 @@ export const Login: React.FC<ContainerProps> = ({
         else { 
             // window.location.href = '/';
             setShowLoading(false);
-            setShowModal(false);
+            if (setShowModal) {
+                setShowModal(false);
+            }
             if (onSignIn) {
                 onSignIn(user, session);
             }
@@ -168,7 +169,7 @@ export const Login: React.FC<ContainerProps> = ({
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
-            <IonButton color='primary' onClick={() => setShowModal(false)}>
+            <IonButton color='primary' onClick={() => setShowModal ? setShowModal(false) : null}>
                     <IonIcon size='large' icon={closeOutline}></IonIcon>
             </IonButton>
           </IonButtons>
@@ -307,7 +308,7 @@ export const Login: React.FC<ContainerProps> = ({
       </IonContent>
     </IonModal>
     {!user && (
-        <IonItem lines='none' detail={false} onClick={() => setShowModal(true)}>
+        <IonItem lines='none' detail={false} onClick={() => setShowModal ? setShowModal(true) : null}>
             <IonIcon slot='start' ios={logInOutline} md={logInSharp}></IonIcon>
             <div style={{width: '100%'}}>
                 <IonButton fill='outline' color='dark'
