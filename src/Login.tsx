@@ -2,6 +2,7 @@ import { IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon,
 import { User } from '@supabase/supabase-js'
 import { arrowForwardOutline, closeOutline, link, lockClosedOutline, lockOpenOutline, logInOutline, logInSharp, logOutOutline, logOutSharp, mailOutline, personAdd, personOutline, personSharp } from 'ionicons/icons';
 import { useEffect, useState } from 'react';
+
 // import { useHistory } from 'react-i18next';
 // import { useHistory } from 'react-router';
 
@@ -55,7 +56,7 @@ const validateEmail = (email: string) => {
     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
 }
-const Login: React.FC<ContainerProps> = ({
+export const Login: React.FC<ContainerProps> = ({
     showModal, setShowModal, backdropDismiss = false, 
     profileFunction, providers, onSignIn, onSignOut, SUPABASE_URL, SUPABASE_KEY
 }) => {
@@ -335,4 +336,4 @@ const Login: React.FC<ContainerProps> = ({
   );
 };
 
-export default Login;
+// export default Login;

@@ -2,6 +2,7 @@ import { IonBackButton, IonButton, IonButtons, IonCol, IonContent, IonGrid, IonH
 import { checkmark } from 'ionicons/icons';
 import { useState } from 'react';
 import { useParams } from 'react-router';
+
 // import { useHistory } from "react-router-dom";
 
 // import StartupService from '../services/startup.service';
@@ -15,7 +16,7 @@ import './ResetPassword.css';
 
 const supabaseAuthService = SupabaseAuthService.getInstance();
 
-const ResetPassword: React.FC = () => {
+export const ResetPassword: React.FC = () => {
     // const history = useHistory();
     const { token } = useParams<{ token: string; }>();
     
@@ -108,4 +109,4 @@ const ResetPassword: React.FC = () => {
   );
 };
 
-export default ResetPassword;
+// export default ResetPassword;
