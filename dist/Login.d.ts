@@ -8,6 +8,7 @@ interface ContainerProps {
     onSignOut?: Function;
     SUPABASE_URL: string;
     SUPABASE_KEY: string;
+    setUser?: Function;
 }
 export declare const Login: React.FC<ContainerProps>;
 export {};

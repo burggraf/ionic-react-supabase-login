@@ -79,7 +79,7 @@ var validateEmail = function (email) {
     return re.test(String(email).toLowerCase());
 };
 export var Login = function (_a) {
-    var _b = _a.backdropDismiss, backdropDismiss = _b === void 0 ? false : _b, profileFunction = _a.profileFunction, providers = _a.providers, onSignIn = _a.onSignIn, onSignOut = _a.onSignOut, SUPABASE_URL = _a.SUPABASE_URL, SUPABASE_KEY = _a.SUPABASE_KEY;
+    var _b = _a.backdropDismiss, backdropDismiss = _b === void 0 ? false : _b, setUser = _a.setUser, profileFunction = _a.profileFunction, providers = _a.providers, onSignIn = _a.onSignIn, onSignOut = _a.onSignOut, SUPABASE_URL = _a.SUPABASE_URL, SUPABASE_KEY = _a.SUPABASE_KEY;
     // const { t } = useTranslation()
     var loadProfile = function () { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
@@ -96,7 +96,7 @@ export var Login = function (_a) {
     supabaseAuthService.showLogin = showModal;
     supabaseAuthService.setShowLogin = setShowModal;
     var _d = useState(false), showLoading = _d[0], setShowLoading = _d[1];
-    var _e = useState(null), user = _e[0], setUser = _e[1];
+    var _e = useState(null), localUser = _e[0], setLocalUser = _e[1];
     // const history = useHistory();
     var _f = useState(false), signUpMode = _f[0], setSignUpMode = _f[1];
     var _g = useIonToast(), present = _g[0], dismiss = _g[1];
@@ -213,8 +213,11 @@ export var Login = function (_a) {
     useEffect(function () {
         // Only run this one time!  No multiple subscriptions!
         supabaseAuthService.user.subscribe(function (user) {
-            setUser(user);
-            console.log('subscribed: user', user);
+            setLocalUser(user);
+            if (setUser) {
+                setUser(user);
+            }
+            // console.log('subscribed: user', user)
         });
     }, []); // <-- empty dependency array
     var signOut = function () { return __awaiter(void 0, void 0, void 0, function () {
@@ -243,5 +246,5 @@ export var Login = function (_a) {
                                         _jsx(IonRow, { children: _jsxs(IonCol, { children: [_jsxs(IonButton, __assign({ expand: "block", disabled: !validateEmail(email) || password.length < 6, onClick: signUp }, { children: [_jsx(IonIcon, { icon: personAdd, size: "large" }), "\u00A0\u00A0", _jsx("b", { children: "Sign Up" })] })), _jsx("div", __assign({ onClick: toggleSignUpMode, className: "ion-text-center", style: { paddingTop: '10px' } }, { children: _jsxs(IonLabel, { children: ["Already have an account? ", _jsx("b", { children: "Sign In" })] }) }))] }) }), _jsx(IonRow, { children: _jsxs(IonCol, { children: [_jsx("div", __assign({ className: "ion-text-center", style: { marginBottom: '10px' } }, { children: _jsx(IonLabel, { children: _jsx("b", { children: "or" }) }) })), _jsxs(IonButton, __assign({ expand: "block", disabled: !validateEmail(email) || password.length > 0, onClick: sendMagicLink }, { children: [_jsx(IonIcon, { icon: link, size: "large" }), "\u00A0\u00A0", _jsx("b", { children: "Send Sign In Link" })] }))] }) })] })), providers &&
                                 _jsx("div", __assign({ className: "ion-text-center" }, { children: _jsx(IonLabel, { children: "or, sign in with:" }) })), _jsx(IonGrid, __assign({ class: "ion-padding ion-text-center", style: { maxWidth: '375px' } }, { children: _jsx(IonRow, { children: _jsx(IonCol, { children: providers === null || providers === void 0 ? void 0 : providers.map(function (provider) {
                                             return (_jsx(ProviderSignInButton, { SUPABASE_URL: SUPABASE_URL, SUPABASE_KEY: SUPABASE_KEY, name: provider, color: logoColors[provider] || 'black' }, "provider-".concat(provider)));
-                                        }) }) }) }))] })] })), !user && (_jsxs(IonItem, __assign({ lines: 'none', detail: false, onClick: function () { return setShowModal(true); } }, { children: [_jsx(IonIcon, { slot: 'start', ios: logInOutline, md: logInSharp }), _jsx("div", __assign({ style: { width: '100%' } }, { children: _jsx(IonButton, __assign({ fill: 'outline', color: 'dark', size: 'small', expand: 'block', strong: true }, { children: "Sign In" })) }))] }))), user && (_jsxs(_Fragment, { children: [_jsxs(IonItem, __assign({ lines: 'none', detail: false, style: { cursor: profileFunction ? 'pointer' : 'default' }, onClick: loadProfile }, { children: [_jsx(IonIcon, { slot: 'start', ios: personOutline, md: personSharp }), _jsx(IonLabel, __assign({ className: 'ion-text-center ion-text-wrap' }, { children: _jsx("strong", { children: user === null || user === void 0 ? void 0 : user.email }) }))] })), _jsxs(IonItem, __assign({ lines: 'none', detail: false, onClick: signOut }, { children: [_jsx(IonIcon, { slot: 'start', ios: logOutOutline, md: logOutSharp }), _jsx("div", __assign({ style: { width: '100%' } }, { children: _jsx(IonButton, __assign({ fill: 'outline', color: 'dark', size: 'small', expand: 'block', strong: true }, { children: "Sign Out" })) }))] }))] }))] }));
+                                        }) }) }) }))] })] })), !localUser && (_jsxs(IonItem, __assign({ lines: 'none', detail: false, onClick: function () { return setShowModal(true); } }, { children: [_jsx(IonIcon, { slot: 'start', ios: logInOutline, md: logInSharp }), _jsx("div", __assign({ style: { width: '100%' } }, { children: _jsx(IonButton, __assign({ fill: 'outline', color: 'dark', size: 'small', expand: 'block', strong: true }, { children: "Sign In" })) }))] }))), localUser && (_jsxs(_Fragment, { children: [_jsxs(IonItem, __assign({ lines: 'none', detail: false, style: { cursor: profileFunction ? 'pointer' : 'default' }, onClick: loadProfile }, { children: [_jsx(IonIcon, { slot: 'start', ios: personOutline, md: personSharp }), _jsx(IonLabel, __assign({ className: 'ion-text-center ion-text-wrap' }, { children: _jsx("strong", { children: localUser === null || localUser === void 0 ? void 0 : localUser.email }) }))] })), _jsxs(IonItem, __assign({ lines: 'none', detail: false, onClick: signOut }, { children: [_jsx(IonIcon, { slot: 'start', ios: logOutOutline, md: logOutSharp }), _jsx("div", __assign({ style: { width: '100%' } }, { children: _jsx(IonButton, __assign({ fill: 'outline', color: 'dark', size: 'small', expand: 'block', strong: true }, { children: "Sign Out" })) }))] }))] }))] }));
 };

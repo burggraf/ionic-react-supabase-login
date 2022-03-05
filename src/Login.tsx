@@ -24,6 +24,7 @@ interface ContainerProps {
     onSignOut?: Function;
     SUPABASE_URL: string;
     SUPABASE_KEY: string;
+    setUser?: Function;
 	// data: string[];
     // index: number;
 	// id: string;
@@ -57,7 +58,7 @@ const validateEmail = (email: string) => {
     return re.test(String(email).toLowerCase());
 }
 export const Login: React.FC<ContainerProps> = ({
-    backdropDismiss = false, 
+    backdropDismiss = false, setUser,
     profileFunction, providers, onSignIn, onSignOut, SUPABASE_URL, SUPABASE_KEY
 }) => {
     // const { t } = useTranslation()
@@ -77,7 +78,7 @@ export const Login: React.FC<ContainerProps> = ({
 
     const [showLoading, setShowLoading] = useState(false);
 
-    const [user, setUser] = useState<User | null>(null)
+    const [localUser, setLocalUser] = useState<User | null>(null)
     // const history = useHistory();
     const [signUpMode, setSignUpMode] = useState(false);
     const [present, dismiss] = useIonToast();
@@ -139,8 +140,11 @@ export const Login: React.FC<ContainerProps> = ({
 	useEffect(() => {
 		// Only run this one time!  No multiple subscriptions!
 		supabaseAuthService.user.subscribe((user: User | null) => {
-            setUser(user);
-			console.log('subscribed: user', user)
+            setLocalUser(user);
+            if (setUser) {
+                setUser(user);
+            }
+			// console.log('subscribed: user', user)
 		})
 	}, []) // <-- empty dependency array
 	const signOut = async () => {
@@ -174,7 +178,6 @@ export const Login: React.FC<ContainerProps> = ({
       </IonHeader>
       <IonContent>
           <IonLoading isOpen={showLoading} message={'Loading'} />
-
 
         <IonGrid class="ion-padding" style={{maxWidth: '375px'}}>
             <IonRow>
@@ -303,7 +306,7 @@ export const Login: React.FC<ContainerProps> = ({
 
       </IonContent>
     </IonModal>
-    {!user && (
+    {!localUser && (
         <IonItem lines='none' detail={false} onClick={() => setShowModal(true)}>
             <IonIcon slot='start' ios={logInOutline} md={logInSharp}></IonIcon>
             <div style={{width: '100%'}}>
@@ -314,7 +317,7 @@ export const Login: React.FC<ContainerProps> = ({
             </div>
         </IonItem>
     )}
-    {user && (
+    {localUser && (
         <>
         <IonItem lines='none' detail={false} 
             style={{cursor: profileFunction ? 'pointer' : 'default'}}
@@ -322,7 +325,7 @@ export const Login: React.FC<ContainerProps> = ({
         >
             <IonIcon slot='start' ios={personOutline} md={personSharp}></IonIcon>
             <IonLabel className='ion-text-center ion-text-wrap'>
-                <strong>{user?.email}</strong>
+                <strong>{localUser?.email}</strong>
             </IonLabel>
         </IonItem>
         <IonItem lines='none' detail={false} onClick={signOut}>
