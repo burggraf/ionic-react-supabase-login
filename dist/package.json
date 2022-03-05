@@ -1,12 +1,12 @@
 {
   "name": "ionic-react-supabase-login",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Modal login component for Ionic React Framework and Supabase Authentication",
   "homepage": "https://github.com/burggraf/ionic-react-supabase-login",
   "main": "dist/index.js",
   "license": "MIT",
   "scripts": {
-    "build": "tsc; cp src/*.css dist/; cp package.json dist/;"
+    "build": "tsc; cp src/*.css dist/; cp package.json dist/; cp src/*.svg dist/;"
   },
   "devDependencies": {
     "@types/react": "^17.0.5",
