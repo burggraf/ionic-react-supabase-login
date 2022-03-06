@@ -9,6 +9,8 @@ interface ContainerProps {
     SUPABASE_URL: string;
     SUPABASE_KEY: string;
     setUser?: Function;
+    profileTable?: string;
+    profileKey?: string;
 }
 export declare const Login: React.FC<ContainerProps>;
 export {};

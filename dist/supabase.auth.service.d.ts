@@ -7,17 +7,22 @@ interface Listener {
 export default class SupabaseAuthService {
     static myInstance: any;
     static supabase: SupabaseClient;
-    static getInstance(SUPABASE_URL?: string, SUPABASE_KEY?: string): any;
+    static profileTable: string;
+    static profileKey: string;
+    static getInstance(SUPABASE_URL?: string, SUPABASE_KEY?: string, profileTable?: string, profileKey?: string): any;
     showLogin: any;
     setShowLogin: any;
     static user: BehaviorSubject<User | null>;
     static profile: BehaviorSubject<any>;
     private _user;
     static subscription: any;
-    static listeners: Listener[];
-    static subscribe: (setFunc: Function, id?: string | undefined) => string;
-    static unsubscribe(id: string): void;
-    private updateListeners;
+    static userListeners: Listener[];
+    static profileListeners: Listener[];
+    static subscribeUser: (setFunc: Function, id?: string | undefined) => string;
+    static subscribeProfile: (setFunc: Function, id?: string | undefined) => string | undefined;
+    static unsubscribeUser(id: string): void;
+    private updateUserListeners;
+    private updateProfileListeners;
     constructor();
     private loadUser;
     loadProfile(): Promise<void>;

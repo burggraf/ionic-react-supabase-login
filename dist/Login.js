@@ -79,7 +79,7 @@ var validateEmail = function (email) {
     return re.test(String(email).toLowerCase());
 };
 export var Login = function (_a) {
-    var _b = _a.backdropDismiss, backdropDismiss = _b === void 0 ? false : _b, setUser = _a.setUser, profileFunction = _a.profileFunction, providers = _a.providers, onSignIn = _a.onSignIn, onSignOut = _a.onSignOut, SUPABASE_URL = _a.SUPABASE_URL, SUPABASE_KEY = _a.SUPABASE_KEY;
+    var _b = _a.backdropDismiss, backdropDismiss = _b === void 0 ? false : _b, setUser = _a.setUser, profileFunction = _a.profileFunction, providers = _a.providers, onSignIn = _a.onSignIn, onSignOut = _a.onSignOut, SUPABASE_URL = _a.SUPABASE_URL, SUPABASE_KEY = _a.SUPABASE_KEY, profileTable = _a.profileTable, profileKey = _a.profileKey;
     // const { t } = useTranslation()
     var loadProfile = function () { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
@@ -90,7 +90,7 @@ export var Login = function (_a) {
         });
     }); };
     if (!supabaseAuthService) {
-        supabaseAuthService = SupabaseAuthService.getInstance(SUPABASE_URL, SUPABASE_KEY);
+        supabaseAuthService = SupabaseAuthService.getInstance(SUPABASE_URL, SUPABASE_KEY, profileTable, profileKey);
     }
     var _c = useState(false), showModal = _c[0], setShowModal = _c[1];
     supabaseAuthService.showLogin = showModal;

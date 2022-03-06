@@ -25,6 +25,8 @@ interface ContainerProps {
     SUPABASE_URL: string;
     SUPABASE_KEY: string;
     setUser?: Function;
+    profileTable?: string;
+    profileKey?: string;
 	// data: string[];
     // index: number;
 	// id: string;
@@ -59,7 +61,8 @@ const validateEmail = (email: string) => {
 }
 export const Login: React.FC<ContainerProps> = ({
     backdropDismiss = false, setUser,
-    profileFunction, providers, onSignIn, onSignOut, SUPABASE_URL, SUPABASE_KEY
+    profileFunction, providers, onSignIn, onSignOut, SUPABASE_URL, SUPABASE_KEY,
+    profileTable, profileKey
 }) => {
     // const { t } = useTranslation()
     const loadProfile = async () => {
@@ -68,7 +71,7 @@ export const Login: React.FC<ContainerProps> = ({
         }
     }
     if (!supabaseAuthService) {
-        supabaseAuthService = SupabaseAuthService.getInstance(SUPABASE_URL, SUPABASE_KEY);
+        supabaseAuthService = SupabaseAuthService.getInstance(SUPABASE_URL, SUPABASE_KEY, profileTable, profileKey);
     }
 
     const [showModal, setShowModal] = useState(false);

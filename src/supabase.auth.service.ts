@@ -13,7 +13,11 @@ interface Listener {
 export default class SupabaseAuthService {
   static myInstance:any = null;
   static supabase: SupabaseClient;
-  static getInstance(SUPABASE_URL?: string, SUPABASE_KEY?: string) {
+  static profileTable: string;
+  static profileKey: string;
+  static getInstance(SUPABASE_URL?: string, SUPABASE_KEY?: string, profileTable?: string, profileKey?: string) {
+    SupabaseAuthService.profileTable = profileTable || '';
+    SupabaseAuthService.profileKey = profileKey || '';
     if (this.myInstance == null) {
       if (SUPABASE_URL && SUPABASE_KEY) {
         this.supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -35,21 +39,39 @@ export default class SupabaseAuthService {
   // private _profile: any = null;
   public static subscription: any = null;
   
-  public static listeners: Listener[] = [];
-  public static subscribe = (setFunc: Function, id?:string) => {
+  public static userListeners: Listener[] = [];
+  public static profileListeners: Listener[] = [];
+  public static subscribeUser = (setFunc: Function, id?:string) => {
     if (!id) {
       // generate a random string id
       id = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
     }
-    this.listeners.push({ id, func: setFunc });
+    this.userListeners.push({ id, func: setFunc });
     return id;
   }
-  public static unsubscribe(id: string) {
-    this.listeners = this.listeners.filter(listener => listener.id !== id);
+  public static subscribeProfile = (setFunc: Function, id?:string) => {
+    if (!SupabaseAuthService.profileTable || !SupabaseAuthService.profileKey) {
+      console.error('missing parameter(s): profileTable and/or profileKey');
+      return;
+    };
+    if (!id) {
+      // generate a random string id
+      id = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+    }
+    this.profileListeners.push({ id, func: setFunc });
+    return id;
   }
-  private updateListeners(user: User | null) {
-    for (let i = 0; i < SupabaseAuthService.listeners.length; i++) {
-      SupabaseAuthService.listeners[i].func(user);
+  public static unsubscribeUser(id: string) {
+    this.userListeners = this.userListeners.filter(userListeners => userListeners.id !== id);
+  }
+  private updateUserListeners(user: User | null) {
+    for (let i = 0; i < SupabaseAuthService.userListeners.length; i++) {
+      SupabaseAuthService.userListeners[i].func(user);
+    }
+  }
+  private updateProfileListeners(user: User | null) {
+    for (let i = 0; i < SupabaseAuthService.profileListeners.length; i++) {
+      SupabaseAuthService.profileListeners[i].func(user);
     }
   }
   constructor() {
@@ -59,11 +81,11 @@ export default class SupabaseAuthService {
         if (event === 'SIGNED_IN' && session) {
           this._user = session.user;
           SupabaseAuthService.user.next(session.user);
-          this.updateListeners(session.user);
+          this.updateUserListeners(session.user);
         } else if (session === null) {
           this._user = null;
           SupabaseAuthService.user.next(null);
-          this.updateListeners(null);
+          this.updateUserListeners(null);
         }  
         this.loadProfile();
       });  
@@ -76,13 +98,14 @@ export default class SupabaseAuthService {
     if (user) {
       this._user = user;
       SupabaseAuthService.user.next(user);
-      this.updateListeners(user);
+      this.updateUserListeners(user);
     } else {
       // no current user
     }
   };
 
   public async loadProfile() {
+    if (!SupabaseAuthService.profileTable || !SupabaseAuthService.profileKey) return;
     if (this._user?.id!) {
       const { data, error } = 
       await SupabaseAuthService.supabase.from('profile')
@@ -95,10 +118,12 @@ export default class SupabaseAuthService {
       } else {
         // this._profile = data;
         SupabaseAuthService.profile.next(data);
+        this.updateProfileListeners(data);
       }
     } else {
       // this._profile = null;
       SupabaseAuthService.profile.next(null);
+      this.updateProfileListeners(null);
     }
   }
 

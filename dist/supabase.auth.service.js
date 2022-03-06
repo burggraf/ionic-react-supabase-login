@@ -144,19 +144,21 @@ var SupabaseAuthService = /** @class */ (function () {
                 if (event === 'SIGNED_IN' && session) {
                     this._user = session.user;
                     SupabaseAuthService.user.next(session.user);
-                    this.updateListeners(session.user);
+                    this.updateUserListeners(session.user);
                 }
                 else if (session === null) {
                     this._user = null;
                     SupabaseAuthService.user.next(null);
-                    this.updateListeners(null);
+                    this.updateUserListeners(null);
                 }
                 this.loadProfile();
                 return [2 /*return*/];
             });
         }); });
     }
-    SupabaseAuthService.getInstance = function (SUPABASE_URL, SUPABASE_KEY) {
+    SupabaseAuthService.getInstance = function (SUPABASE_URL, SUPABASE_KEY, profileTable, profileKey) {
+        SupabaseAuthService.profileTable = profileTable || '';
+        SupabaseAuthService.profileKey = profileKey || '';
         if (this.myInstance == null) {
             if (SUPABASE_URL && SUPABASE_KEY) {
                 this.supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -169,12 +171,17 @@ var SupabaseAuthService = /** @class */ (function () {
         }
         return this.myInstance;
     };
-    SupabaseAuthService.unsubscribe = function (id) {
-        this.listeners = this.listeners.filter(function (listener) { return listener.id !== id; });
+    SupabaseAuthService.unsubscribeUser = function (id) {
+        this.userListeners = this.userListeners.filter(function (userListeners) { return userListeners.id !== id; });
     };
-    SupabaseAuthService.prototype.updateListeners = function (user) {
-        for (var i = 0; i < SupabaseAuthService.listeners.length; i++) {
-            SupabaseAuthService.listeners[i].func(user);
+    SupabaseAuthService.prototype.updateUserListeners = function (user) {
+        for (var i = 0; i < SupabaseAuthService.userListeners.length; i++) {
+            SupabaseAuthService.userListeners[i].func(user);
+        }
+    };
+    SupabaseAuthService.prototype.updateProfileListeners = function (user) {
+        for (var i = 0; i < SupabaseAuthService.profileListeners.length; i++) {
+            SupabaseAuthService.profileListeners[i].func(user);
         }
     };
     // ************** auth ****************
@@ -186,7 +193,7 @@ var SupabaseAuthService = /** @class */ (function () {
                 if (user) {
                     this._user = user;
                     SupabaseAuthService.user.next(user);
-                    this.updateListeners(user);
+                    this.updateUserListeners(user);
                 }
                 else {
                     // no current user
@@ -203,6 +210,8 @@ var SupabaseAuthService = /** @class */ (function () {
             return __generator(this, function (_e) {
                 switch (_e.label) {
                     case 0:
+                        if (!SupabaseAuthService.profileTable || !SupabaseAuthService.profileKey)
+                            return [2 /*return*/];
                         if (!((_b = this._user) === null || _b === void 0 ? void 0 : _b.id)) return [3 /*break*/, 2];
                         return [4 /*yield*/, SupabaseAuthService.supabase.from('profile')
                                 .select('*')
@@ -217,11 +226,13 @@ var SupabaseAuthService = /** @class */ (function () {
                         else {
                             // this._profile = data;
                             SupabaseAuthService.profile.next(data);
+                            this.updateProfileListeners(data);
                         }
                         return [3 /*break*/, 3];
                     case 2:
                         // this._profile = null;
                         SupabaseAuthService.profile.next(null);
+                        this.updateProfileListeners(null);
                         _e.label = 3;
                     case 3: return [2 /*return*/];
                 }
@@ -238,13 +249,27 @@ var SupabaseAuthService = /** @class */ (function () {
     SupabaseAuthService.profile = new BehaviorSubject(null);
     // private _profile: any = null;
     SupabaseAuthService.subscription = null;
-    SupabaseAuthService.listeners = [];
-    SupabaseAuthService.subscribe = function (setFunc, id) {
+    SupabaseAuthService.userListeners = [];
+    SupabaseAuthService.profileListeners = [];
+    SupabaseAuthService.subscribeUser = function (setFunc, id) {
         if (!id) {
             // generate a random string id
             id = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
         }
-        _a.listeners.push({ id: id, func: setFunc });
+        _a.userListeners.push({ id: id, func: setFunc });
+        return id;
+    };
+    SupabaseAuthService.subscribeProfile = function (setFunc, id) {
+        if (!SupabaseAuthService.profileTable || !SupabaseAuthService.profileKey) {
+            console.error('missing parameter(s): profileTable and/or profileKey');
+            return;
+        }
+        ;
+        if (!id) {
+            // generate a random string id
+            id = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+        }
+        _a.profileListeners.push({ id: id, func: setFunc });
         return id;
     };
     return SupabaseAuthService;
