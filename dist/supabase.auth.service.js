@@ -36,12 +36,19 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 import { createClient } from '@supabase/supabase-js';
 import { BehaviorSubject } from 'rxjs';
-// import { keys } from '../services/keys.service';
-// const supabase: SupabaseClient = createClient(keys.SUPABASE_URL, keys.SUPABASE_KEY);
 var SupabaseAuthService = /** @class */ (function () {
     function SupabaseAuthService() {
         var _this = this;
         this._user = null;
+        this.listeners = [];
+        this.subscribe = function (setFunc, id) {
+            if (!id) {
+                // generate a random string id
+                id = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+            }
+            _this.listeners.push({ id: id, func: setFunc });
+            return id;
+        };
         this.signUpWithEmail = function (email, password) { return __awaiter(_this, void 0, void 0, function () {
             var _a, user, session, error;
             return __generator(this, function (_b) {
@@ -146,10 +153,12 @@ var SupabaseAuthService = /** @class */ (function () {
                 if (event === 'SIGNED_IN' && session) {
                     this._user = session.user;
                     SupabaseAuthService.user.next(session.user);
+                    this.updateListeners(session.user);
                 }
                 else if (session === null) {
                     this._user = null;
                     SupabaseAuthService.user.next(null);
+                    this.updateListeners(null);
                 }
                 this.loadProfile();
                 return [2 /*return*/];
@@ -169,6 +178,14 @@ var SupabaseAuthService = /** @class */ (function () {
         }
         return this.myInstance;
     };
+    SupabaseAuthService.prototype.unsubscribe = function (id) {
+        this.listeners = this.listeners.filter(function (listener) { return listener.id !== id; });
+    };
+    SupabaseAuthService.prototype.updateListeners = function (user) {
+        for (var i = 0; i < this.listeners.length; i++) {
+            this.listeners[i].func(user);
+        }
+    };
     // ************** auth ****************
     SupabaseAuthService.prototype.loadUser = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -178,6 +195,7 @@ var SupabaseAuthService = /** @class */ (function () {
                 if (user) {
                     this._user = user;
                     SupabaseAuthService.user.next(user);
+                    this.updateListeners(user);
                 }
                 else {
                     // no current user

@@ -5,6 +5,11 @@ import { BehaviorSubject } from 'rxjs';
 
 // const supabase: SupabaseClient = createClient(keys.SUPABASE_URL, keys.SUPABASE_KEY);
 
+interface Listener {
+  id: string;
+  func: Function;
+}
+
 export default class SupabaseAuthService {
   static myInstance:any = null;
   static supabase: SupabaseClient;
@@ -30,6 +35,23 @@ export default class SupabaseAuthService {
   // private _profile: any = null;
   public static subscription: any = null;
   
+  public listeners: Listener[] = [];
+  public subscribe = (setFunc: Function, id?:string) => {
+    if (!id) {
+      // generate a random string id
+      id = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+    }
+    this.listeners.push({ id, func: setFunc });
+    return id;
+  }
+  public unsubscribe(id: string) {
+    this.listeners = this.listeners.filter(listener => listener.id !== id);
+  }
+  private updateListeners(user: User | null) {
+    for (let i = 0; i < this.listeners.length; i++) {
+      this.listeners[i].func(user);
+    }
+  }
   constructor() {
     // Try to recover our user session
     this.loadUser();
@@ -37,9 +59,11 @@ export default class SupabaseAuthService {
         if (event === 'SIGNED_IN' && session) {
           this._user = session.user;
           SupabaseAuthService.user.next(session.user);
+          this.updateListeners(session.user);
         } else if (session === null) {
           this._user = null;
           SupabaseAuthService.user.next(null);
+          this.updateListeners(null);
         }  
         this.loadProfile();
       });  
@@ -52,6 +76,7 @@ export default class SupabaseAuthService {
     if (user) {
       this._user = user;
       SupabaseAuthService.user.next(user);
+      this.updateListeners(user);
     } else {
       // no current user
     }

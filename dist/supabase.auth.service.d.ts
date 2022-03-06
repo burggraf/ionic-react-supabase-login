@@ -1,5 +1,9 @@
 import { Provider, SupabaseClient, User } from '@supabase/supabase-js';
 import { BehaviorSubject } from 'rxjs';
+interface Listener {
+    id: string;
+    func: Function;
+}
 export default class SupabaseAuthService {
     static myInstance: any;
     static supabase: SupabaseClient;
@@ -10,6 +14,10 @@ export default class SupabaseAuthService {
     static profile: BehaviorSubject<any>;
     private _user;
     static subscription: any;
+    listeners: Listener[];
+    subscribe: (setFunc: Function, id?: string | undefined) => string;
+    unsubscribe(id: string): void;
+    private updateListeners;
     constructor();
     private loadUser;
     loadProfile(): Promise<void>;
