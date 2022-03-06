@@ -46,7 +46,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { IonBackButton, IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonInput, IonLabel, IonPage, IonRow, IonTitle, IonToolbar, useIonToast } from '@ionic/react';
+import { IonBackButton, IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonInput, IonLabel, IonModal, IonRow, IonTitle, IonToolbar, useIonToast } from '@ionic/react';
 import { checkmark } from 'ionicons/icons';
 import { useState } from 'react';
 // import { useParams } from 'react-router';
@@ -61,9 +61,10 @@ export var ResetPassword = function () {
     // const history = useHistory();
     // const { token } = useParams<{ token: string; }>();
     // let token: string = '';
-    var _a = useState(''), token = _a[0], setToken = _a[1];
-    var _b = useIonToast(), present = _b[0], dismiss = _b[1];
-    var _c = useState(''), password = _c[0], setPassword = _c[1];
+    var _a = useState(false), showModal = _a[0], setShowModal = _a[1];
+    var _b = useState(''), token = _b[0], setToken = _b[1];
+    var _c = useIonToast(), present = _c[0], dismiss = _c[1];
+    var _d = useState(''), password = _d[0], setPassword = _d[1];
     var hash = window.location.hash;
     if (hash && hash.substring(0, 1) === '#') {
         var tokens = hash.substring(1).split('&');
@@ -76,7 +77,15 @@ export var ResetPassword = function () {
             // return `/resetpassword/${entryPayload.access_token}`;
             // token = entryPayload.access_token;
             setToken(entryPayload_1.access_token);
+            setShowModal(true);
+            console.log('token was set to:', token);
         }
+        else {
+            console.log('token was not set entryPayload:', entryPayload_1);
+        }
+    }
+    else {
+        console.log('no hash was found');
     }
     var toast = function (message, color) {
         if (color === void 0) { color = 'danger'; }
@@ -119,6 +128,6 @@ export var ResetPassword = function () {
             }
         });
     }); };
-    return (_jsxs(IonPage, { children: [_jsx(IonHeader, { children: _jsxs(IonToolbar, { children: [_jsx(IonButtons, __assign({ slot: "start" }, { children: _jsx(IonBackButton, { defaultHref: "/page" }) })), _jsx(IonTitle, { children: "Reset Password" })] }) }), _jsxs(IonContent, __assign({ fullscreen: true }, { children: [_jsx(IonHeader, __assign({ collapse: "condense" }, { children: _jsx(IonToolbar, { children: _jsx(IonTitle, __assign({ size: "large" }, { children: "Reset Password" })) }) })), _jsxs(IonGrid, __assign({ class: "ion-padding" }, { children: [_jsx(IonRow, { children: _jsx(IonCol, { children: _jsx(IonLabel, { children: _jsx("b", { children: "New Password" }) }) }) }), _jsx(IonRow, { children: _jsx(IonCol, { children: _jsx(IonInput, { type: "password", placeholder: "Enter your new password", onIonChange: function (e) { return setPassword(e.detail.value); }, value: password, class: "inputBox" }) }) }), password.length > 0 && password.length < 6 &&
-                                _jsx(IonRow, { children: _jsx(IonCol, { children: _jsx(IonLabel, __assign({ color: "danger" }, { children: _jsx("b", { children: "Password too short" }) })) }) }), _jsx(IonRow, { children: _jsx(IonCol, { children: _jsxs(IonButton, __assign({ expand: "block", disabled: password.length < 6, onClick: updatePassword }, { children: [_jsx(IonIcon, { icon: checkmark, size: "large" }), "\u00A0\u00A0", _jsx("b", { children: "Save New Password" })] })) }) })] }))] }))] }));
+    return (_jsxs(IonModal, __assign({ isOpen: showModal, backdropDismiss: false, className: 'my-custom-class' }, { children: [_jsx(IonHeader, { children: _jsxs(IonToolbar, { children: [_jsx(IonButtons, __assign({ slot: "start" }, { children: _jsx(IonBackButton, { defaultHref: "/page" }) })), _jsx(IonTitle, { children: "Reset Password" })] }) }), _jsxs(IonContent, __assign({ fullscreen: true }, { children: [_jsx(IonHeader, __assign({ collapse: "condense" }, { children: _jsx(IonToolbar, { children: _jsx(IonTitle, __assign({ size: "large" }, { children: "Reset Password" })) }) })), _jsxs(IonGrid, __assign({ class: "ion-padding" }, { children: [_jsx(IonRow, { children: _jsx(IonCol, { children: _jsx(IonLabel, { children: _jsx("b", { children: "New Password" }) }) }) }), _jsx(IonRow, { children: _jsx(IonCol, { children: _jsx(IonInput, { type: "password", placeholder: "Enter your new password", onIonChange: function (e) { return setPassword(e.detail.value); }, value: password, class: "inputBox" }) }) }), password.length > 0 && password.length < 6 &&
+                                _jsx(IonRow, { children: _jsx(IonCol, { children: _jsx(IonLabel, __assign({ color: "danger" }, { children: _jsx("b", { children: "Password too short" }) })) }) }), _jsx(IonRow, { children: _jsx(IonCol, { children: _jsxs(IonButton, __assign({ expand: "block", disabled: password.length < 6, onClick: updatePassword }, { children: [_jsx(IonIcon, { icon: checkmark, size: "large" }), "\u00A0\u00A0", _jsx("b", { children: "Save New Password" })] })) }) })] }))] }))] })));
 };

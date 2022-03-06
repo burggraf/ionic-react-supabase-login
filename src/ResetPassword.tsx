@@ -1,4 +1,4 @@
-import { IonBackButton, IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonInput, IonLabel, IonPage, IonRow, IonTitle, IonToolbar, useIonToast } from '@ionic/react';
+import { IonBackButton, IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonInput, IonLabel, IonModal, IonRow, IonTitle, IonToolbar, useIonToast } from '@ionic/react';
 import { checkmark } from 'ionicons/icons';
 import { useState } from 'react';
 // import { useParams } from 'react-router';
@@ -20,6 +20,8 @@ export const ResetPassword: React.FC = () => {
     // const history = useHistory();
     // const { token } = useParams<{ token: string; }>();
     // let token: string = '';
+    const [showModal, setShowModal] = useState(false);
+
     const [token, setToken] = useState('');
     const [present, dismiss] = useIonToast();
     const [password, setPassword] = useState('');
@@ -36,7 +38,14 @@ export const ResetPassword: React.FC = () => {
             // return `/resetpassword/${entryPayload.access_token}`;
             // token = entryPayload.access_token;
             setToken(entryPayload.access_token);
+            setShowModal(true);
+            console.log('token was set to:', token);
+        } else {
+          console.log('token was not set entryPayload:', entryPayload);
         }
+        
+    } else {
+      console.log('no hash was found');
     }
 
 
@@ -73,7 +82,10 @@ export const ResetPassword: React.FC = () => {
     }
     
   return (
-    <IonPage>
+    <IonModal 
+    isOpen={showModal} 
+    backdropDismiss={false}
+    className='my-custom-class'>
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
@@ -123,7 +135,7 @@ export const ResetPassword: React.FC = () => {
         </IonGrid>
         
       </IonContent>
-    </IonPage>
+    </IonModal>
   );
 };
 
