@@ -97,7 +97,9 @@ export var ResetPassword = function (_a) {
     useEffect(function () {
         console.log('useEffect: token', token);
         if (token) {
-            setShowModal(true);
+            setTimeout(function () {
+                setShowModal(true);
+            }, 3000);
         }
         else {
             console.log('useEffect: token was not set');

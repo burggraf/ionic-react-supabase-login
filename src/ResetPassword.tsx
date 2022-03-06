@@ -65,7 +65,9 @@ export const ResetPassword: React.FC<ContainerProps> = ({
     useEffect(() => {
       console.log('useEffect: token', token);
       if (token) {
-        setShowModal(true);
+        setTimeout(() => {
+          setShowModal(true);
+        }, 3000);
       } else {
         console.log('useEffect: token was not set');
       }
