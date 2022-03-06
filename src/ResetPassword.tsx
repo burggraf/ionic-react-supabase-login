@@ -1,6 +1,6 @@
 import { IonBackButton, IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonInput, IonLabel, IonModal, IonRow, IonTitle, IonToolbar, useIonToast } from '@ionic/react';
 import { checkmark } from 'ionicons/icons';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 // import { useParams } from 'react-router';
 
 // import { useHistory } from "react-router-dom";
@@ -38,28 +38,29 @@ export const ResetPassword: React.FC<ContainerProps> = ({
     const [present, dismiss] = useIonToast();
     const [password, setPassword] = useState('');
 
-    const hash = window.location.hash;
-    if (hash && hash.substring(0,1) === '#') {
-        const tokens = hash.substring(1).split('&');
-        const entryPayload: any = {};
-        tokens.map((token) => {
-            const pair = (token + '=').split('=');
-            entryPayload[pair[0]] = pair[1];
-        });
-        if (entryPayload?.type === 'recovery') { // password recovery link
-            // return `/resetpassword/${entryPayload.access_token}`;
-            // token = entryPayload.access_token;
-            setToken(entryPayload.access_token);
-            setShowModal(true);
-            console.log('token was set to:', token);
-        } else {
-          console.log('token was not set entryPayload:', entryPayload);
-        }
-        
-    } else {
-      console.log('no hash was found');
-    }
-
+    useEffect(() => {
+      const hash = window.location.hash;
+      if (hash && hash.substring(0,1) === '#') {
+          const tokens = hash.substring(1).split('&');
+          const entryPayload: any = {};
+          tokens.map((token) => {
+              const pair = (token + '=').split('=');
+              entryPayload[pair[0]] = pair[1];
+          });
+          if (entryPayload?.type === 'recovery') { // password recovery link
+              // return `/resetpassword/${entryPayload.access_token}`;
+              // token = entryPayload.access_token;
+              setToken(entryPayload.access_token);
+              setShowModal(true);
+              console.log('token was set to:', token);
+          } else {
+            console.log('token was not set entryPayload:', entryPayload);
+          }
+          
+      } else {
+        console.log('no hash was found');
+      }  
+    },[]);
 
     const toast = (message: string, color: string = 'danger') => {
         present({
@@ -149,7 +150,6 @@ export const ResetPassword: React.FC<ContainerProps> = ({
         
       </IonContent>
     </IonModal>
-    <div>reset</div>
     </>
   );
 };
