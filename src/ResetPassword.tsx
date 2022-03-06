@@ -63,6 +63,7 @@ export const ResetPassword: React.FC<ContainerProps> = ({
       }  
     },[]);
     useEffect(() => {
+      console.log('useEffect: token', token);
       if (token) {
         setShowModal(true);
       } else {

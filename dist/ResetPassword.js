@@ -95,6 +95,7 @@ export var ResetPassword = function (_a) {
         }
     }, []);
     useEffect(function () {
+        console.log('useEffect: token', token);
         if (token) {
             setShowModal(true);
         }
