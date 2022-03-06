@@ -108,13 +108,7 @@ export const ResetPassword: React.FC<ContainerProps> = ({
           <IonTitle>Reset Password</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent fullscreen>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Reset Password</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-
+      <IonContent>
         <IonGrid class="ion-padding">
             <IonRow>
                 <IonCol>
@@ -150,7 +144,7 @@ export const ResetPassword: React.FC<ContainerProps> = ({
         
       </IonContent>
     </IonModal>
-    <span>reset</span>
+    <span></span>
     </>
   );
 };
