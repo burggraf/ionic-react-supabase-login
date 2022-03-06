@@ -1,4 +1,4 @@
-import { IonBackButton, IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonInput, IonLabel, IonModal, IonRow, IonTitle, IonToolbar, useIonToast } from '@ionic/react';
+import { IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonInput, IonLabel, IonModal, IonRow, IonTitle, IonToolbar, useIonToast } from '@ionic/react';
 import { checkmark, closeOutline } from 'ionicons/icons';
 import { useEffect, useState } from 'react';
 // import { useParams } from 'react-router';
@@ -78,7 +78,7 @@ export const ResetPassword: React.FC<ContainerProps> = ({
             message: message,
             cssClass: 'toast',
             buttons: [{ icon: 'close', handler: () => dismiss() }],
-            duration: 6000,
+            duration: 3000,
             //onDidDismiss: () => console.log('dismissed'),
             //onWillDismiss: () => console.log('will dismiss'),
           })
@@ -93,14 +93,15 @@ export const ResetPassword: React.FC<ContainerProps> = ({
                 message: 'Password successfully updated',
                 cssClass: 'toast',
                 buttons: [{ icon: 'close', handler: () => dismiss() }],
-                duration: 6000,
+                duration: 3000,
                 onDidDismiss: () => {
                     // history.push(defaultRoute);
                     // history.replace(defaultRoute);
                     window.location.href = '/';
                 },
                 //onWillDismiss: () => console.log('will dismiss'),
-              })                
+              })  
+              setShowModal(false);              
          }
     }
     

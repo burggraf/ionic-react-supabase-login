@@ -110,7 +110,7 @@ export var Login = function (_a) {
             message: message,
             cssClass: 'toast',
             buttons: [{ icon: 'close', handler: function () { return dismiss(); } }],
-            duration: 6000,
+            duration: 3000,
             //onDidDismiss: () => console.log('dismissed'),
             //onWillDismiss: () => console.log('will dismiss'),
         });

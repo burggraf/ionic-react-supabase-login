@@ -91,7 +91,7 @@ export const Login: React.FC<ContainerProps> = ({
             message: message,
             cssClass: 'toast',
             buttons: [{ icon: 'close', handler: () => dismiss() }],
-            duration: 6000,
+            duration: 3000,
             //onDidDismiss: () => console.log('dismissed'),
             //onWillDismiss: () => console.log('will dismiss'),
           })

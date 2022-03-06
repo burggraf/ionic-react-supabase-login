@@ -112,7 +112,7 @@ export var ResetPassword = function (_a) {
             message: message,
             cssClass: 'toast',
             buttons: [{ icon: 'close', handler: function () { return dismiss(); } }],
-            duration: 6000,
+            duration: 3000,
             //onDidDismiss: () => console.log('dismissed'),
             //onWillDismiss: () => console.log('will dismiss'),
         });
@@ -133,7 +133,7 @@ export var ResetPassword = function (_a) {
                             message: 'Password successfully updated',
                             cssClass: 'toast',
                             buttons: [{ icon: 'close', handler: function () { return dismiss(); } }],
-                            duration: 6000,
+                            duration: 3000,
                             onDidDismiss: function () {
                                 // history.push(defaultRoute);
                                 // history.replace(defaultRoute);
@@ -141,6 +141,7 @@ export var ResetPassword = function (_a) {
                             },
                             //onWillDismiss: () => console.log('will dismiss'),
                         });
+                        setShowModal(false);
                     }
                     return [2 /*return*/];
             }

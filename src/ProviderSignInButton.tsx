@@ -74,7 +74,7 @@ const ProviderSignInButton: React.FC<ContainerProps> = ({ name, color, SUPABASE_
 			message: message,
 			cssClass: 'toast',
 			buttons: [{ icon: 'close', handler: () => dismiss() }],
-			duration: 6000,
+			duration: 3000,
 			//onDidDismiss: () => console.log('dismissed'),
 			//onWillDismiss: () => console.log('will dismiss'),
 		})
