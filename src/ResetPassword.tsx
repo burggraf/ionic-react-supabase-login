@@ -1,5 +1,5 @@
 import { IonBackButton, IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonInput, IonLabel, IonModal, IonRow, IonTitle, IonToolbar, useIonToast } from '@ionic/react';
-import { checkmark } from 'ionicons/icons';
+import { checkmark, closeOutline } from 'ionicons/icons';
 import { useEffect, useState } from 'react';
 // import { useParams } from 'react-router';
 
@@ -40,7 +40,7 @@ export const ResetPassword: React.FC<ContainerProps> = ({
 
     useEffect(() => {
       const hash = window.location.hash;
-      console.log('hash', hash);
+      // console.log('hash', hash);
       if (hash && hash.substring(0,1) === '#') {
           const tokens = hash.substring(1).split('&');
           const entryPayload: any = {};
@@ -48,18 +48,17 @@ export const ResetPassword: React.FC<ContainerProps> = ({
               const pair = (token + '=').split('=');
               entryPayload[pair[0]] = pair[1];
           });
-          console.log('entryPayload', entryPayload);
+          // console.log('entryPayload', entryPayload);
           if (entryPayload?.type === 'recovery') { // password recovery link
               // return `/resetpassword/${entryPayload.access_token}`;
               // token = entryPayload.access_token;
               setToken(entryPayload.access_token);
-              console.log('token was set to:', entryPayload.access_token);
+              // console.log('token was set to:', entryPayload.access_token);
           } else {
-            console.log('token was not set entryPayload:', entryPayload);
-          }
-          
+            // console.log('token was not set entryPayload:', entryPayload);
+          }          
       } else {
-        console.log('no hash was found');
+        // console.log('no hash was found');
       }  
     },[]);
     useEffect(() => {
@@ -67,9 +66,9 @@ export const ResetPassword: React.FC<ContainerProps> = ({
       if (token) {
         setTimeout(() => {
           setShowModal(true);
-        }, 3000);
+        }, 2000);
       } else {
-        console.log('useEffect: token was not set');
+        // console.log('useEffect: token was not set');
       }
     }, [token]);
 
@@ -113,8 +112,10 @@ export const ResetPassword: React.FC<ContainerProps> = ({
     className='my-custom-class'>
       <IonHeader>
         <IonToolbar>
-          <IonButtons slot="start">
-            <IonBackButton defaultHref="/page" />
+        <IonButtons slot="start">
+            <IonButton color='primary' onClick={() => setShowModal(false)}>
+                    <IonIcon size='large' icon={closeOutline}></IonIcon>
+            </IonButton>
           </IonButtons>
           <IonTitle>Reset Password</IonTitle>
         </IonToolbar>
