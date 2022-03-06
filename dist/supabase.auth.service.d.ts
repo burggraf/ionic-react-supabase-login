@@ -14,9 +14,9 @@ export default class SupabaseAuthService {
     static profile: BehaviorSubject<any>;
     private _user;
     static subscription: any;
-    listeners: Listener[];
-    subscribe: (setFunc: Function, id?: string | undefined) => string;
-    unsubscribe(id: string): void;
+    static listeners: Listener[];
+    static subscribe: (setFunc: Function, id?: string | undefined) => string;
+    static unsubscribe(id: string): void;
     private updateListeners;
     constructor();
     private loadUser;

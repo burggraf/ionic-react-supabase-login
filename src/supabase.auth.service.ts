@@ -35,8 +35,8 @@ export default class SupabaseAuthService {
   // private _profile: any = null;
   public static subscription: any = null;
   
-  public listeners: Listener[] = [];
-  public subscribe = (setFunc: Function, id?:string) => {
+  public static listeners: Listener[] = [];
+  public static subscribe = (setFunc: Function, id?:string) => {
     if (!id) {
       // generate a random string id
       id = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
@@ -44,12 +44,12 @@ export default class SupabaseAuthService {
     this.listeners.push({ id, func: setFunc });
     return id;
   }
-  public unsubscribe(id: string) {
+  public static unsubscribe(id: string) {
     this.listeners = this.listeners.filter(listener => listener.id !== id);
   }
   private updateListeners(user: User | null) {
-    for (let i = 0; i < this.listeners.length; i++) {
-      this.listeners[i].func(user);
+    for (let i = 0; i < SupabaseAuthService.listeners.length; i++) {
+      SupabaseAuthService.listeners[i].func(user);
     }
   }
   constructor() {

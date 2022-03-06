@@ -40,105 +40,96 @@ var SupabaseAuthService = /** @class */ (function () {
     function SupabaseAuthService() {
         var _this = this;
         this._user = null;
-        this.listeners = [];
-        this.subscribe = function (setFunc, id) {
-            if (!id) {
-                // generate a random string id
-                id = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-            }
-            _this.listeners.push({ id: id, func: setFunc });
-            return id;
-        };
         this.signUpWithEmail = function (email, password) { return __awaiter(_this, void 0, void 0, function () {
-            var _a, user, session, error;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var _b, user, session, error;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
                     case 0: return [4 /*yield*/, SupabaseAuthService.supabase.auth.signUp({
                             email: email,
                             password: password,
                         })];
                     case 1:
-                        _a = _b.sent(), user = _a.user, session = _a.session, error = _a.error;
+                        _b = _c.sent(), user = _b.user, session = _b.session, error = _b.error;
                         return [2 /*return*/, { user: user, session: session, error: error }];
                 }
             });
         }); };
         this.signInWithEmail = function (email, password) { return __awaiter(_this, void 0, void 0, function () {
-            var _a, user, session, error;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var _b, user, session, error;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
                     case 0: return [4 /*yield*/, SupabaseAuthService.supabase.auth.signIn({
                             email: email,
                             password: password,
                         })];
                     case 1:
-                        _a = _b.sent(), user = _a.user, session = _a.session, error = _a.error;
+                        _b = _c.sent(), user = _b.user, session = _b.session, error = _b.error;
                         return [2 /*return*/, { user: user, session: session, error: error }];
                 }
             });
         }); };
         this.signInWithProvider = function (provider) { return __awaiter(_this, void 0, void 0, function () {
-            var _a, user, session, error;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var _b, user, session, error;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
                     case 0: return [4 /*yield*/, SupabaseAuthService.supabase.auth.signIn({
                             provider: provider
                         }, {
                             redirectTo: window.location.href // .origin
                         })];
                     case 1:
-                        _a = _b.sent(), user = _a.user, session = _a.session, error = _a.error;
+                        _b = _c.sent(), user = _b.user, session = _b.session, error = _b.error;
                         return [2 /*return*/, { user: user, session: session, error: error }];
                 }
             });
         }); };
         this.resetPassword = function (email) { return __awaiter(_this, void 0, void 0, function () {
-            var _a, data, error;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var _b, data, error;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
                     case 0: return [4 /*yield*/, SupabaseAuthService.supabase.auth.api.resetPasswordForEmail(email, {
                             redirectTo: window.location.origin // + '/resetpassword'
                         })];
                     case 1:
-                        _a = _b.sent(), data = _a.data, error = _a.error;
+                        _b = _c.sent(), data = _b.data, error = _b.error;
                         return [2 /*return*/, { data: data, error: error }];
                 }
             });
         }); };
         this.sendMagicLink = function (email) { return __awaiter(_this, void 0, void 0, function () {
-            var _a, user, session, error;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var _b, user, session, error;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
                     case 0: return [4 /*yield*/, SupabaseAuthService.supabase.auth.signIn({
                             email: email
                         }, {
                             redirectTo: window.location.origin
                         })];
                     case 1:
-                        _a = _b.sent(), user = _a.user, session = _a.session, error = _a.error;
+                        _b = _c.sent(), user = _b.user, session = _b.session, error = _b.error;
                         return [2 /*return*/, { user: user, session: session, error: error }];
                 }
             });
         }); };
         this.updatePassword = function (access_token, new_password) { return __awaiter(_this, void 0, void 0, function () {
-            var _a, error, data;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var _b, error, data;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
                     case 0: return [4 /*yield*/, SupabaseAuthService.supabase.auth.api
                             .updateUser(access_token, { password: new_password })];
                     case 1:
-                        _a = _b.sent(), error = _a.error, data = _a.data;
+                        _b = _c.sent(), error = _b.error, data = _b.data;
                         return [2 /*return*/, { error: error, data: data }];
                 }
             });
         }); };
         this.signOut = function () { return __awaiter(_this, void 0, void 0, function () {
             var error;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0: return [4 /*yield*/, SupabaseAuthService.supabase.auth.signOut()];
                     case 1:
-                        error = (_a.sent()).error;
+                        error = (_b.sent()).error;
                         if (!error) {
                             SupabaseAuthService.user.next(null);
                         }
@@ -149,7 +140,7 @@ var SupabaseAuthService = /** @class */ (function () {
         // Try to recover our user session
         this.loadUser();
         SupabaseAuthService.subscription = SupabaseAuthService.supabase.auth.onAuthStateChange(function (event, session) { return __awaiter(_this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
+            return __generator(this, function (_b) {
                 if (event === 'SIGNED_IN' && session) {
                     this._user = session.user;
                     SupabaseAuthService.user.next(session.user);
@@ -178,19 +169,19 @@ var SupabaseAuthService = /** @class */ (function () {
         }
         return this.myInstance;
     };
-    SupabaseAuthService.prototype.unsubscribe = function (id) {
+    SupabaseAuthService.unsubscribe = function (id) {
         this.listeners = this.listeners.filter(function (listener) { return listener.id !== id; });
     };
     SupabaseAuthService.prototype.updateListeners = function (user) {
-        for (var i = 0; i < this.listeners.length; i++) {
-            this.listeners[i].func(user);
+        for (var i = 0; i < SupabaseAuthService.listeners.length; i++) {
+            SupabaseAuthService.listeners[i].func(user);
         }
     };
     // ************** auth ****************
     SupabaseAuthService.prototype.loadUser = function () {
         return __awaiter(this, void 0, void 0, function () {
             var user;
-            return __generator(this, function (_a) {
+            return __generator(this, function (_b) {
                 user = SupabaseAuthService.supabase.auth.user();
                 if (user) {
                     this._user = user;
@@ -206,20 +197,20 @@ var SupabaseAuthService = /** @class */ (function () {
     };
     ;
     SupabaseAuthService.prototype.loadProfile = function () {
-        var _a, _b;
+        var _b, _c;
         return __awaiter(this, void 0, void 0, function () {
-            var _c, data, error;
-            return __generator(this, function (_d) {
-                switch (_d.label) {
+            var _d, data, error;
+            return __generator(this, function (_e) {
+                switch (_e.label) {
                     case 0:
-                        if (!((_a = this._user) === null || _a === void 0 ? void 0 : _a.id)) return [3 /*break*/, 2];
+                        if (!((_b = this._user) === null || _b === void 0 ? void 0 : _b.id)) return [3 /*break*/, 2];
                         return [4 /*yield*/, SupabaseAuthService.supabase.from('profile')
                                 .select('*')
-                                .eq('id', (_b = this._user) === null || _b === void 0 ? void 0 : _b.id)
+                                .eq('id', (_c = this._user) === null || _c === void 0 ? void 0 : _c.id)
                                 .limit(1)
                                 .single()];
                     case 1:
-                        _c = _d.sent(), data = _c.data, error = _c.error;
+                        _d = _e.sent(), data = _d.data, error = _d.error;
                         if (error) {
                             console.error('loadProfile error: ', error);
                         }
@@ -231,7 +222,7 @@ var SupabaseAuthService = /** @class */ (function () {
                     case 2:
                         // this._profile = null;
                         SupabaseAuthService.profile.next(null);
-                        _d.label = 3;
+                        _e.label = 3;
                     case 3: return [2 /*return*/];
                 }
             });
@@ -240,11 +231,22 @@ var SupabaseAuthService = /** @class */ (function () {
     SupabaseAuthService.prototype.getCurrentUser = function () {
         return this._user;
     };
+    var _a;
+    _a = SupabaseAuthService;
     SupabaseAuthService.myInstance = null;
     SupabaseAuthService.user = new BehaviorSubject(null);
     SupabaseAuthService.profile = new BehaviorSubject(null);
     // private _profile: any = null;
     SupabaseAuthService.subscription = null;
+    SupabaseAuthService.listeners = [];
+    SupabaseAuthService.subscribe = function (setFunc, id) {
+        if (!id) {
+            // generate a random string id
+            id = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+        }
+        _a.listeners.push({ id: id, func: setFunc });
+        return id;
+    };
     return SupabaseAuthService;
 }());
 export default SupabaseAuthService;
