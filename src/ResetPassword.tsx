@@ -53,8 +53,7 @@ export const ResetPassword: React.FC<ContainerProps> = ({
               // return `/resetpassword/${entryPayload.access_token}`;
               // token = entryPayload.access_token;
               setToken(entryPayload.access_token);
-              setShowModal(true);
-              console.log('token was set to:', token);
+              console.log('token was set to:', entryPayload.access_token);
           } else {
             console.log('token was not set entryPayload:', entryPayload);
           }
@@ -63,6 +62,13 @@ export const ResetPassword: React.FC<ContainerProps> = ({
         console.log('no hash was found');
       }  
     },[]);
+    useEffect(() => {
+      if (token) {
+        setShowModal(true);
+      } else {
+        console.log('useEffect: token was not set');
+      }
+    }, [token]);
 
     const toast = (message: string, color: string = 'danger') => {
         present({

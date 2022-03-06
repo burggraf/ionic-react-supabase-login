@@ -84,8 +84,7 @@ export var ResetPassword = function (_a) {
                 // return `/resetpassword/${entryPayload.access_token}`;
                 // token = entryPayload.access_token;
                 setToken(entryPayload_1.access_token);
-                setShowModal(true);
-                console.log('token was set to:', token);
+                console.log('token was set to:', entryPayload_1.access_token);
             }
             else {
                 console.log('token was not set entryPayload:', entryPayload_1);
@@ -95,6 +94,14 @@ export var ResetPassword = function (_a) {
             console.log('no hash was found');
         }
     }, []);
+    useEffect(function () {
+        if (token) {
+            setShowModal(true);
+        }
+        else {
+            console.log('useEffect: token was not set');
+        }
+    }, [token]);
     var toast = function (message, color) {
         if (color === void 0) { color = 'danger'; }
         present({
