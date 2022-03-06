@@ -40,6 +40,7 @@ export const ResetPassword: React.FC<ContainerProps> = ({
 
     useEffect(() => {
       const hash = window.location.hash;
+      console.log('hash', hash);
       if (hash && hash.substring(0,1) === '#') {
           const tokens = hash.substring(1).split('&');
           const entryPayload: any = {};
@@ -47,6 +48,7 @@ export const ResetPassword: React.FC<ContainerProps> = ({
               const pair = (token + '=').split('=');
               entryPayload[pair[0]] = pair[1];
           });
+          console.log('entryPayload', entryPayload);
           if (entryPayload?.type === 'recovery') { // password recovery link
               // return `/resetpassword/${entryPayload.access_token}`;
               // token = entryPayload.access_token;

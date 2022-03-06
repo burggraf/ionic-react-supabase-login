@@ -71,6 +71,7 @@ export var ResetPassword = function (_a) {
     var _e = useState(''), password = _e[0], setPassword = _e[1];
     useEffect(function () {
         var hash = window.location.hash;
+        console.log('hash', hash);
         if (hash && hash.substring(0, 1) === '#') {
             var tokens = hash.substring(1).split('&');
             var entryPayload_1 = {};
@@ -78,6 +79,7 @@ export var ResetPassword = function (_a) {
                 var pair = (token + '=').split('=');
                 entryPayload_1[pair[0]] = pair[1];
             });
+            console.log('entryPayload', entryPayload_1);
             if ((entryPayload_1 === null || entryPayload_1 === void 0 ? void 0 : entryPayload_1.type) === 'recovery') { // password recovery link
                 // return `/resetpassword/${entryPayload.access_token}`;
                 // token = entryPayload.access_token;
