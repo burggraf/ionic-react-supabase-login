@@ -49,7 +49,7 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { IonBackButton, IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonInput, IonLabel, IonPage, IonRow, IonTitle, IonToolbar, useIonToast } from '@ionic/react';
 import { checkmark } from 'ionicons/icons';
 import { useState } from 'react';
-import { useParams } from 'react-router';
+// import { useParams } from 'react-router';
 // import { useHistory } from "react-router-dom";
 // import StartupService from '../services/startup.service';
 import SupabaseAuthService from './supabase.auth.service';
@@ -59,9 +59,25 @@ import './ResetPassword.css';
 var supabaseAuthService = SupabaseAuthService.getInstance();
 export var ResetPassword = function () {
     // const history = useHistory();
-    var token = useParams().token;
-    var _a = useIonToast(), present = _a[0], dismiss = _a[1];
-    var _b = useState(''), password = _b[0], setPassword = _b[1];
+    // const { token } = useParams<{ token: string; }>();
+    // let token: string = '';
+    var _a = useState(''), token = _a[0], setToken = _a[1];
+    var _b = useIonToast(), present = _b[0], dismiss = _b[1];
+    var _c = useState(''), password = _c[0], setPassword = _c[1];
+    var hash = window.location.hash;
+    if (hash && hash.substring(0, 1) === '#') {
+        var tokens = hash.substring(1).split('&');
+        var entryPayload_1 = {};
+        tokens.map(function (token) {
+            var pair = (token + '=').split('=');
+            entryPayload_1[pair[0]] = pair[1];
+        });
+        if ((entryPayload_1 === null || entryPayload_1 === void 0 ? void 0 : entryPayload_1.type) === 'recovery') { // password recovery link
+            // return `/resetpassword/${entryPayload.access_token}`;
+            // token = entryPayload.access_token;
+            setToken(entryPayload_1.access_token);
+        }
+    }
     var toast = function (message, color) {
         if (color === void 0) { color = 'danger'; }
         present({

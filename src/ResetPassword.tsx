@@ -1,7 +1,7 @@
 import { IonBackButton, IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonInput, IonLabel, IonPage, IonRow, IonTitle, IonToolbar, useIonToast } from '@ionic/react';
 import { checkmark } from 'ionicons/icons';
 import { useState } from 'react';
-import { useParams } from 'react-router';
+// import { useParams } from 'react-router';
 
 // import { useHistory } from "react-router-dom";
 
@@ -18,10 +18,28 @@ const supabaseAuthService = SupabaseAuthService.getInstance();
 
 export const ResetPassword: React.FC = () => {
     // const history = useHistory();
-    const { token } = useParams<{ token: string; }>();
-    
+    // const { token } = useParams<{ token: string; }>();
+    // let token: string = '';
+    const [token, setToken] = useState('');
     const [present, dismiss] = useIonToast();
     const [password, setPassword] = useState('');
+
+    const hash = window.location.hash;
+    if (hash && hash.substring(0,1) === '#') {
+        const tokens = hash.substring(1).split('&');
+        const entryPayload: any = {};
+        tokens.map((token) => {
+            const pair = (token + '=').split('=');
+            entryPayload[pair[0]] = pair[1];
+        });
+        if (entryPayload?.type === 'recovery') { // password recovery link
+            // return `/resetpassword/${entryPayload.access_token}`;
+            // token = entryPayload.access_token;
+            setToken(entryPayload.access_token);
+        }
+    }
+
+
     const toast = (message: string, color: string = 'danger') => {
         present({
             color: color,
