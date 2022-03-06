@@ -2,9 +2,10 @@
 A modal login component for Ionic React Framework and Supabase Authentication.
 
 ```jsx
+    // const [user, setUser] = useState<any>(null);
     <Login 
     // providers={['google', 'facebook', 'twitter']}
-    providers={['google', 'facebook', 'twitter']}
+    // setUser={setUser}
     // profileFunction={() => { console.log('profileFunction here..'); }}
     // onSignIn={() => { console.log('onSignIn here..'); }}
     // onSignOut={() => { console.log('onSignOut here..'); }}

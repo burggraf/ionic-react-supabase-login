@@ -92,7 +92,7 @@ var SupabaseAuthService = /** @class */ (function () {
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0: return [4 /*yield*/, SupabaseAuthService.supabase.auth.api.resetPasswordForEmail(email, {
-                            redirectTo: window.location.origin
+                            redirectTo: window.location.origin + '/resetpassword'
                         })];
                     case 1:
                         _a = _b.sent(), data = _a.data, error = _a.error;
