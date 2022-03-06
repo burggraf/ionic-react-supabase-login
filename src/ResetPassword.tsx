@@ -94,6 +94,7 @@ export const ResetPassword: React.FC<ContainerProps> = ({
     }
     
   return (
+    <>
     <IonModal 
     isOpen={showModal} 
     backdropDismiss={false}
@@ -148,6 +149,8 @@ export const ResetPassword: React.FC<ContainerProps> = ({
         
       </IonContent>
     </IonModal>
+    <div>reset</div>
+    </>
   );
 };
 
