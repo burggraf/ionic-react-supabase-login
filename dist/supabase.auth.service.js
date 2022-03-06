@@ -230,3 +230,4 @@ var SupabaseAuthService = /** @class */ (function () {
     return SupabaseAuthService;
 }());
 export default SupabaseAuthService;
+export { SupabaseAuthService };

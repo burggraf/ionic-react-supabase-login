@@ -137,3 +137,5 @@ export default class SupabaseAuthService {
     return { error };
   }
 }
+
+export { SupabaseAuthService };
