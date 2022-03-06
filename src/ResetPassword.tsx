@@ -9,14 +9,26 @@ import { useState } from 'react';
 import SupabaseAuthService from './supabase.auth.service';
 
 import './ResetPassword.css';
+let supabaseAuthService: SupabaseAuthService;
+
+interface ContainerProps {
+    // backdropDismiss?: boolean;
+    SUPABASE_URL: string;
+    SUPABASE_KEY: string;
+}
 
 // const startupService = StartupService.getInstance();
 // const defaultRoute = startupService.getDefaultRoute();
 
 
-const supabaseAuthService = SupabaseAuthService.getInstance();
 
-export const ResetPassword: React.FC = () => {
+export const ResetPassword: React.FC<ContainerProps> = ({
+  SUPABASE_URL, SUPABASE_KEY
+}) => {
+    if (!supabaseAuthService) {
+      supabaseAuthService = SupabaseAuthService.getInstance(SUPABASE_URL, SUPABASE_KEY);
+    }
+
     // const history = useHistory();
     // const { token } = useParams<{ token: string; }>();
     // let token: string = '';

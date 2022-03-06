@@ -54,17 +54,21 @@ import { useState } from 'react';
 // import StartupService from '../services/startup.service';
 import SupabaseAuthService from './supabase.auth.service';
 import './ResetPassword.css';
+var supabaseAuthService;
 // const startupService = StartupService.getInstance();
 // const defaultRoute = startupService.getDefaultRoute();
-var supabaseAuthService = SupabaseAuthService.getInstance();
-export var ResetPassword = function () {
+export var ResetPassword = function (_a) {
+    var SUPABASE_URL = _a.SUPABASE_URL, SUPABASE_KEY = _a.SUPABASE_KEY;
+    if (!supabaseAuthService) {
+        supabaseAuthService = SupabaseAuthService.getInstance(SUPABASE_URL, SUPABASE_KEY);
+    }
     // const history = useHistory();
     // const { token } = useParams<{ token: string; }>();
     // let token: string = '';
-    var _a = useState(false), showModal = _a[0], setShowModal = _a[1];
-    var _b = useState(''), token = _b[0], setToken = _b[1];
-    var _c = useIonToast(), present = _c[0], dismiss = _c[1];
-    var _d = useState(''), password = _d[0], setPassword = _d[1];
+    var _b = useState(false), showModal = _b[0], setShowModal = _b[1];
+    var _c = useState(''), token = _c[0], setToken = _c[1];
+    var _d = useIonToast(), present = _d[0], dismiss = _d[1];
+    var _e = useState(''), password = _e[0], setPassword = _e[1];
     var hash = window.location.hash;
     if (hash && hash.substring(0, 1) === '#') {
         var tokens = hash.substring(1).split('&');

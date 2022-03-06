@@ -109,7 +109,7 @@ export default class SupabaseAuthService {
   public resetPassword = async (email: string) => {
     const { data, error } = await SupabaseAuthService.supabase.auth.api.resetPasswordForEmail(email,
       {
-        redirectTo: window.location.origin + '/resetpassword'
+        redirectTo: window.location.origin // + '/resetpassword'
       });
     return { data, error };
   }
