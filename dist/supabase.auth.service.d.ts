@@ -6,8 +6,8 @@ export default class SupabaseAuthService {
     static getInstance(SUPABASE_URL?: string, SUPABASE_KEY?: string): any;
     showLogin: any;
     setShowLogin: any;
-    user: BehaviorSubject<User | null>;
-    profile: BehaviorSubject<any>;
+    static user: BehaviorSubject<User | null>;
+    static profile: BehaviorSubject<any>;
     private _user;
     static subscription: any;
     constructor();

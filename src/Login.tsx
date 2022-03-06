@@ -151,7 +151,7 @@ export const Login: React.FC<ContainerProps> = ({
 	useEffect(() => {
 		// Only run this one time!  No multiple subscriptions!
         loadUser();
-		supabaseAuthService.user.subscribe((user: User | null) => {
+		SupabaseAuthService.user.subscribe((user: User | null) => {
             setLocalUser(user);
             if (setUser) {
                 setUser(user);

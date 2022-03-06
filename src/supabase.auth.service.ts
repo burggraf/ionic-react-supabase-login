@@ -24,8 +24,8 @@ export default class SupabaseAuthService {
   public showLogin: any;
   public setShowLogin: any;
 
-  public user = new BehaviorSubject<User | null>(null);
-  public profile = new BehaviorSubject<any>(null);
+  public static user = new BehaviorSubject<User | null>(null);
+  public static profile = new BehaviorSubject<any>(null);
   private _user: User | null = null;
   // private _profile: any = null;
   public static subscription: any = null;
@@ -36,10 +36,10 @@ export default class SupabaseAuthService {
     SupabaseAuthService.subscription = SupabaseAuthService.supabase.auth.onAuthStateChange(async (event, session) => {
         if (event === 'SIGNED_IN' && session) {
           this._user = session.user;
-          this.user.next(session.user);
+          SupabaseAuthService.user.next(session.user);
         } else if (session === null) {
           this._user = null;
-          this.user.next(null);
+          SupabaseAuthService.user.next(null);
         }  
         this.loadProfile();
       });  
@@ -51,7 +51,7 @@ export default class SupabaseAuthService {
     const user = SupabaseAuthService.supabase.auth.user();
     if (user) {
       this._user = user;
-      this.user.next(user);
+      SupabaseAuthService.user.next(user);
     } else {
       // no current user
     }
@@ -69,11 +69,11 @@ export default class SupabaseAuthService {
         console.error('loadProfile error: ', error);
       } else {
         // this._profile = data;
-        this.profile.next(data);
+        SupabaseAuthService.profile.next(data);
       }
     } else {
       // this._profile = null;
-      this.profile.next(null);
+      SupabaseAuthService.profile.next(null);
     }
   }
 
@@ -132,7 +132,7 @@ export default class SupabaseAuthService {
   public signOut = async () => {
     const { error } = await SupabaseAuthService.supabase.auth.signOut();
     if (!error) {
-      this.user.next(null);
+      SupabaseAuthService.user.next(null);
     }
     return { error };
   }

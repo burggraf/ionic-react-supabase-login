@@ -226,7 +226,7 @@ export var Login = function (_a) {
     useEffect(function () {
         // Only run this one time!  No multiple subscriptions!
         loadUser();
-        supabaseAuthService.user.subscribe(function (user) {
+        SupabaseAuthService.user.subscribe(function (user) {
             setLocalUser(user);
             if (setUser) {
                 setUser(user);

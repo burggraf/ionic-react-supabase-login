@@ -41,8 +41,6 @@ import { BehaviorSubject } from 'rxjs';
 var SupabaseAuthService = /** @class */ (function () {
     function SupabaseAuthService() {
         var _this = this;
-        this.user = new BehaviorSubject(null);
-        this.profile = new BehaviorSubject(null);
         this._user = null;
         this.signUpWithEmail = function (email, password) { return __awaiter(_this, void 0, void 0, function () {
             var _a, user, session, error;
@@ -135,7 +133,7 @@ var SupabaseAuthService = /** @class */ (function () {
                     case 1:
                         error = (_a.sent()).error;
                         if (!error) {
-                            this.user.next(null);
+                            SupabaseAuthService.user.next(null);
                         }
                         return [2 /*return*/, { error: error }];
                 }
@@ -147,11 +145,11 @@ var SupabaseAuthService = /** @class */ (function () {
             return __generator(this, function (_a) {
                 if (event === 'SIGNED_IN' && session) {
                     this._user = session.user;
-                    this.user.next(session.user);
+                    SupabaseAuthService.user.next(session.user);
                 }
                 else if (session === null) {
                     this._user = null;
-                    this.user.next(null);
+                    SupabaseAuthService.user.next(null);
                 }
                 this.loadProfile();
                 return [2 /*return*/];
@@ -179,7 +177,7 @@ var SupabaseAuthService = /** @class */ (function () {
                 user = SupabaseAuthService.supabase.auth.user();
                 if (user) {
                     this._user = user;
-                    this.user.next(user);
+                    SupabaseAuthService.user.next(user);
                 }
                 else {
                     // no current user
@@ -209,12 +207,12 @@ var SupabaseAuthService = /** @class */ (function () {
                         }
                         else {
                             // this._profile = data;
-                            this.profile.next(data);
+                            SupabaseAuthService.profile.next(data);
                         }
                         return [3 /*break*/, 3];
                     case 2:
                         // this._profile = null;
-                        this.profile.next(null);
+                        SupabaseAuthService.profile.next(null);
                         _d.label = 3;
                     case 3: return [2 /*return*/];
                 }
@@ -225,6 +223,8 @@ var SupabaseAuthService = /** @class */ (function () {
         return this._user;
     };
     SupabaseAuthService.myInstance = null;
+    SupabaseAuthService.user = new BehaviorSubject(null);
+    SupabaseAuthService.profile = new BehaviorSubject(null);
     // private _profile: any = null;
     SupabaseAuthService.subscription = null;
     return SupabaseAuthService;
