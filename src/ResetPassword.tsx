@@ -150,6 +150,7 @@ export const ResetPassword: React.FC<ContainerProps> = ({
         
       </IonContent>
     </IonModal>
+    <span>reset</span>
     </>
   );
 };
