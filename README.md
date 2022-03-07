@@ -3,6 +3,14 @@ A modal login component for Ionic React Framework and Supabase Authentication.
 
 Add **TWO LINES** of code to your app and get complete authentication functionality!  If you want password reset functionality as well, make that **THREE LINES**.
 
+(The lines:)
+```jsx
+import { Login, ResetPassword } from 
+'ionic-react-supabase-login';
+<Login SUPABASE_URL="url_here" SUPABASE_KEY="key_here" />
+<ResetPassword SUPABASE_URL="url_here" SUPABASE_KEY="key_here" />
+```
+
 ## Demos
 
 #### Sign in with email/password or Oauth Provider
