@@ -180,6 +180,9 @@ var SupabaseAuthService = /** @class */ (function () {
     SupabaseAuthService.unsubscribeUser = function (id) {
         this.userListeners = this.userListeners.filter(function (userListeners) { return userListeners.id !== id; });
     };
+    SupabaseAuthService.unsubscribeProfile = function (id) {
+        this.userListeners = this.profileListeners.filter(function (profileListeners) { return profileListeners.id !== id; });
+    };
     SupabaseAuthService.prototype.updateUserListeners = function (user) {
         for (var i = 0; i < SupabaseAuthService.userListeners.length; i++) {
             SupabaseAuthService.userListeners[i].func(user);

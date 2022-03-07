@@ -23,6 +23,7 @@ export default class SupabaseAuthService {
     static subscribeUser: (setFunc: Function, id?: string | undefined) => string;
     static subscribeProfile: (setFunc: Function, id?: string | undefined) => string | undefined;
     static unsubscribeUser(id: string): void;
+    static unsubscribeProfile(id: string): void;
     private updateUserListeners;
     private updateProfileListeners;
     constructor();

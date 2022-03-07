@@ -71,6 +71,9 @@ export default class SupabaseAuthService {
   public static unsubscribeUser(id: string) {
     this.userListeners = this.userListeners.filter(userListeners => userListeners.id !== id);
   }
+  public static unsubscribeProfile(id: string) {
+    this.userListeners = this.profileListeners.filter(profileListeners => profileListeners.id !== id);
+  }
   private updateUserListeners(user: User | null) {
     for (let i = 0; i < SupabaseAuthService.userListeners.length; i++) {
       SupabaseAuthService.userListeners[i].func(user);
