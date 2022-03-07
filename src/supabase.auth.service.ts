@@ -115,9 +115,9 @@ export default class SupabaseAuthService {
     if (!SupabaseAuthService.profileTable || !SupabaseAuthService.profileKey) return;
     if (this._user?.id!) {
       const { data, error } = 
-      await SupabaseAuthService.supabase.from('profile')
+      await SupabaseAuthService.supabase.from(SupabaseAuthService.profileTable)
       .select('*')
-      .eq('id', this._user?.id!)
+      .eq(SupabaseAuthService.profileKey, this._user?.id!)
       .limit(1)
       .single(); // return a single object (not an array)
       if (error) {

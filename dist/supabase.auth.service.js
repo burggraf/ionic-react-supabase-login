@@ -219,9 +219,9 @@ var SupabaseAuthService = /** @class */ (function () {
                         if (!SupabaseAuthService.profileTable || !SupabaseAuthService.profileKey)
                             return [2 /*return*/];
                         if (!((_b = this._user) === null || _b === void 0 ? void 0 : _b.id)) return [3 /*break*/, 2];
-                        return [4 /*yield*/, SupabaseAuthService.supabase.from('profile')
+                        return [4 /*yield*/, SupabaseAuthService.supabase.from(SupabaseAuthService.profileTable)
                                 .select('*')
-                                .eq('id', (_c = this._user) === null || _c === void 0 ? void 0 : _c.id)
+                                .eq(SupabaseAuthService.profileKey, (_c = this._user) === null || _c === void 0 ? void 0 : _c.id)
                                 .limit(1)
                                 .single()];
                     case 1:
