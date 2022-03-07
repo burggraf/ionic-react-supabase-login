@@ -29,4 +29,18 @@ A modal login component for Ionic React Framework and Supabase Authentication.
     SUPABASE_URL={keys.SUPABASE_URL}
     SUPABASE_KEY={keys.SUPABASE_KEY} />
 ```
+### Subscribe to User and Profile
+Subscribe to state changes for current user and optional profile:
+```jsx
+  const [ user, setUser ] = useState<any>(null);
+  const [ profile, setProfile ] = useState<any>(null);
+  useEffect(() => {
+    const userSubscription = SupabaseAuthService.subscribeUser(setUser);
+    const profileSubscription = SupabaseAuthService.subscribeProfile(setProfile);
+    return () => {
+        SupabaseAuthService.unsubscribeUser(userSubscription);
+        SupabaseAuthService.unsubscribeProfile(profileSubscription);
+    }
+  },[])
+```
 
