@@ -1,6 +1,18 @@
 # ionic-react-supabase-login
 A modal login component for Ionic React Framework and Supabase Authentication.
 
+## Demos
+
+#### Sign in with email/password or Oauth Provider
+
+![login with email/password, or provider](img/email_password_provider.gif)
+
+#### Password-less sign in (magic link)
+![login with magic link](img/magic_link.gif)
+
+#### Reset Password
+![reset email password](img/password_reset.gif)
+
 ## Quick Start
 1. Create a project at [https://supabase.com](https://supabase.com), save your `SUPABASE_URL` and `SUPABASE_KEY` (anonymous key)
 2. Create or open an [Ionic React](https://ionicframework.com) Project (use the sidemenu template)
