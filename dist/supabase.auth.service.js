@@ -47,6 +47,8 @@ var SupabaseAuthService = /** @class */ (function () {
                     case 0: return [4 /*yield*/, SupabaseAuthService.supabase.auth.signUp({
                             email: email,
                             password: password,
+                        }, {
+                            redirectTo: window.location.origin // .origin
                         })];
                     case 1:
                         _b = _c.sent(), user = _b.user, session = _b.session, error = _b.error;

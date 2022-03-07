@@ -145,6 +145,8 @@ export default class SupabaseAuthService {
     const { user, session, error } = await SupabaseAuthService.supabase.auth.signUp({
       email: email,
       password: password,
+    },{
+      redirectTo: window.location.origin // .origin
     });
     return { user, session, error };
   }
