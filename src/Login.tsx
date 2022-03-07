@@ -72,6 +72,9 @@ export const Login: React.FC<ContainerProps> = ({
     }
     if (!supabaseAuthService) {
         supabaseAuthService = SupabaseAuthService.getInstance(SUPABASE_URL, SUPABASE_KEY, profileTable, profileKey);
+    } else {
+        SupabaseAuthService.setProfileTable(profileTable || '');
+        SupabaseAuthService.setProfileKey(profileKey || '');
     }
 
     const [showModal, setShowModal] = useState(false);

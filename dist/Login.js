@@ -92,6 +92,10 @@ export var Login = function (_a) {
     if (!supabaseAuthService) {
         supabaseAuthService = SupabaseAuthService.getInstance(SUPABASE_URL, SUPABASE_KEY, profileTable, profileKey);
     }
+    else {
+        SupabaseAuthService.setProfileTable(profileTable || '');
+        SupabaseAuthService.setProfileKey(profileKey || '');
+    }
     var _c = useState(false), showModal = _c[0], setShowModal = _c[1];
     supabaseAuthService.showLogin = showModal;
     supabaseAuthService.setShowLogin = setShowModal;

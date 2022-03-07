@@ -171,6 +171,12 @@ var SupabaseAuthService = /** @class */ (function () {
         }
         return this.myInstance;
     };
+    SupabaseAuthService.setProfileTable = function (profileTable) {
+        SupabaseAuthService.profileTable = profileTable;
+    };
+    SupabaseAuthService.setProfileKey = function (profileKey) {
+        SupabaseAuthService.profileKey = profileKey;
+    };
     SupabaseAuthService.unsubscribeUser = function (id) {
         this.userListeners = this.userListeners.filter(function (userListeners) { return userListeners.id !== id; });
     };

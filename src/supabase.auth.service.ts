@@ -41,6 +41,13 @@ export default class SupabaseAuthService {
   
   public static userListeners: Listener[] = [];
   public static profileListeners: Listener[] = [];
+  public static setProfileTable(profileTable: string) {
+    SupabaseAuthService.profileTable = profileTable;
+  }
+  public static setProfileKey(profileKey: string) {
+    SupabaseAuthService.profileKey = profileKey;
+  }
+
   public static subscribeUser = (setFunc: Function, id?:string) => {
     if (!id) {
       // generate a random string id
