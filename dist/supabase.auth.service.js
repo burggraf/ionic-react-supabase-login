@@ -271,7 +271,7 @@ var SupabaseAuthService = /** @class */ (function () {
     SupabaseAuthService.subscribeProfile = function (setFunc, id) {
         if (!SupabaseAuthService.profileTable || !SupabaseAuthService.profileKey) {
             console.error('missing parameter(s): profileTable and/or profileKey');
-            return;
+            return '';
         }
         ;
         if (!id) {

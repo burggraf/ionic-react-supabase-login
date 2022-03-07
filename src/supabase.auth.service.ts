@@ -59,7 +59,7 @@ export default class SupabaseAuthService {
   public static subscribeProfile = (setFunc: Function, id?:string) => {
     if (!SupabaseAuthService.profileTable || !SupabaseAuthService.profileKey) {
       console.error('missing parameter(s): profileTable and/or profileKey');
-      return;
+      return '';
     };
     if (!id) {
       // generate a random string id
