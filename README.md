@@ -11,7 +11,7 @@ A modal login component for Ionic React Framework and Supabase Authentication.
 ![login with magic link](img/magic_link.gif)
 
 #### Reset Password
-![reset email password](img/password_reset.gif)
+![reset email password](img/reset_password.gif)
 
 ## Quick Start
 1. Create a project at [https://supabase.com](https://supabase.com), save your `SUPABASE_URL` and `SUPABASE_KEY` (anonymous key)
