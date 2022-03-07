@@ -39,11 +39,11 @@ Add **TWO LINES** of code to your app and get complete authentication functional
 6. In the render section, add:
 ```jsx
     <Login 
-        SUPABASE_URL="SUPABASE_URL"}
-        SUPABASE_KEY="SUPABASE_KEY" />
+        SUPABASE_URL="https://xxxxxxxxxxxxx.supabase.co"
+        SUPABASE_KEY="zzzzzzzzzzzzzzzzzzzzzzzzzzz" />
     <ResetPassword 
-        SUPABASE_URL="SUPABASE_URL"}
-        SUPABASE_KEY="SUPABASE_KEY" />
+        SUPABASE_URL="https://xxxxxxxxxxxxx.supabase.co"
+        SUPABASE_KEY="zzzzzzzzzzzzzzzzzzzzzzzzzzz" />
 ```
 Notes:
 - The `<Login />` component here is the minimal setup, shown above with the only 2 requirements: your `Supabase URL` and `Anonymous Key`.  That's all you need to allow your users to log in.
