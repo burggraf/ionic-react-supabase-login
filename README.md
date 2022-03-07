@@ -31,9 +31,9 @@ A modal login component for Ionic React Framework and Supabase Authentication.
 ## Quick Start
 1. Create a project at [https://supabase.com](https://supabase.com), save your `SUPABASE_URL` and `SUPABASE_KEY` (anonymous key)
 2. Create or open an [Ionic React](https://ionicframework.com) Project (use the sidemenu template)
-3. `npm i ionic-react-supabase-login`
+3. Add the component to your project: `npm i ionic-react-supabase-login`
 4. Open `Menu.tsx`
-5. To the top, add: `import { Login, ResetPassword } from 'ionic-react-supabase-login';`
+5. Import the component on the page: `import { Login, ResetPassword } from 'ionic-react-supabase-login';`
 6. In the render section, add:
 ```jsx
     <Login 
@@ -43,16 +43,16 @@ A modal login component for Ionic React Framework and Supabase Authentication.
         SUPABASE_URL="SUPABASE_URL"}
         SUPABASE_KEY="SUPABASE_KEY" />
 ```
+Notes:
+- The `<Login />` component here is the minimal setup, shown above with the only 2 requirements: your `Supabase URL` and `Anonymous Key`.  That's all you need to allow your users to log in.
+- The `<Login />` component renders as a Login button if the user is not logged in.  If the user IS logged in, it renders with the email address of the currently logged-in user and a log out button.
+- The `<ResetPassword />` component above is optional, and never shows up in the UI unless the user enters your app from a password reset email link.  If a reset token is found in the URL of the current page, then after 2 seconds, the `ResetPassword` modal component will pop up and request a new password.  At this point, your user is already logged in, because the Reset Password Email link automatically logs the user in by default.
 
 ### Login Component
 ```jsx
-    // const [user, setUser] = useState<any>(null);
-    // const keys = {
-     //   "SUPABASE_URL":"https://project_ref.supabase.co",
-     //   "SUPABASE_KEY":"my_supabase_anon_key}
     <Login 
-        SUPABASE_URL={keys.SUPABASE_URL}
-        SUPABASE_KEY={keys.SUPABASE_KEY}
+        SUPABASE_URL="https://project_ref.supabase.co"
+        SUPABASE_KEY="my_supabase_anon_key"
         // everything below is optional
         providers={['google', 'facebook', 'twitter']} // Oauth providers
         backdropDismiss={false} // dismiss when user taps background?
@@ -64,15 +64,36 @@ A modal login component for Ionic React Framework and Supabase Authentication.
         profileKey="key" // set key field name for public profile table (i.e. "id")
     />
 ```
+#### Required Parameters
+`SUPABASE_URL` the API URL from your Supabase project (you'll find this in the Supabase dashboard under Settings / API / Configuration: URL)
+
+`SUPABASE_KEY` the ANON KEY from your Supabase project (you'll find this in the Supabase dashboard under Settings / API / Project API keys: anon public)
+#### Optional Parameters
+`providers` pass an array of strings containing any combination of the following available providers: `apple, bitbucket, discord, facebook, github, gitlab, google, twitch, twitter, slack, spotify, notion, zoom, azure, linkedin`
+
+`backdropDismiss` pass a boolean, true if you want the user to be able to dismiss the modal by tapping on the background
+
+`profileFunction` pass a function that gets executed when the user taps on their email address button when logged in (typically this would take the user to a profile page where they can modify their own profile)
+
+`onSignIn` pass a function that gets executed when a user signs in (useful to redirect a specific page after login)
+
+`onSignOut` pass a function that gets executed when a user signs out (useful to redirect a specific page after logout)
+
+`setUser` pass a `useState` function to be executed when the current user changes
+
+`profileTable` pass a string which is the name of a public table where user profiles are stored - this is required if you want to automatically load a user profile when the current user logs on
+
+`profileKey` pass a string which is the name of the field in the `profileTable` that contains the user id key - this is required if you want to automatically load a user profile when the current user logs on
+
 ### Reset Password Component
-(Renders as a modal after 2 seconds if a password reset token is received by current window.)
+By default, the `Reset Password` component doesn't render anything.  If, however, the user enters your app by clicking on a `Reset Password Email Link`, a token will appear in the app URL, and the `Reset Password` component will sense this, and pop up a modal after 2 seconds asking for a new password.
 ```jsx
     <ResetPassword 
     SUPABASE_URL={keys.SUPABASE_URL}
     SUPABASE_KEY={keys.SUPABASE_KEY} />
 ```
 ### Subscribe to User and Profile
-Subscribe to state changes for current user and optional profile:
+You can subscribe to state changes for the current user and optionally for the user's profile.  Just pass a `useState` function to be called when the user or profile changes:
 ```jsx
   const [ user, setUser ] = useState<any>(null);
   const [ profile, setProfile ] = useState<any>(null);
