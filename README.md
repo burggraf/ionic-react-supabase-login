@@ -37,6 +37,10 @@ import { Login, ResetPassword } from
 - Execute a function when user clicks on their own email (typically this would open your profile page)
 - Execute a function on successful login and/or logout
 - Subscribe to current user and/or current user’s profile (accessed through useState)
+- Styling:
+    - Respects current color set
+    - Handles light-mode/dark-mode automatically
+- Integrates automatically with other Supabase features (database, storage, etc.)  If you're using RLS (Row Level Security Policies) and you use the Supabase Javascript Library (@supabase/supabase-js) it'll automatically respect the currently logged-in user.
 
 ## Quick Start
 1. Create a project at [https://supabase.com](https://supabase.com), save your `SUPABASE_URL` and `SUPABASE_KEY` (anonymous key)
@@ -105,6 +109,9 @@ By default, the `Reset Password` component doesn't render anything.  If, however
 ### Subscribe to User and Profile
 You can subscribe to state changes for the current user and optionally for the user's profile.  Just pass a `useState` function to be called when the user or profile changes:
 ```jsx
+  // import SupabaseAuthService at top of code
+  import { SupabaseAuthService } from 'ionic-react-supabase-login';
+
   const [ user, setUser ] = useState<any>(null);
   const [ profile, setProfile ] = useState<any>(null);
   useEffect(() => {
