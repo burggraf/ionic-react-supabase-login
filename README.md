@@ -110,9 +110,9 @@ By default, the `Reset Password` component doesn't render anything.  If, however
 You can subscribe to state changes for the current user and optionally for the user's profile.  Just pass a `useState` function to be called when the user or profile changes:
 ```jsx
   // import SupabaseAuthService at top of code
-  import { SupabaseAuthService } from 'ionic-react-supabase-login';
+  import { SupabaseAuthService, User } from 'ionic-react-supabase-login';
 
-  const [ user, setUser ] = useState<any>(null);
+  const [ user, setUser ] = useState<User | null>(null);
   const [ profile, setProfile ] = useState<any>(null);
   useEffect(() => {
     const userSubscription = SupabaseAuthService.subscribeUser(setUser);
