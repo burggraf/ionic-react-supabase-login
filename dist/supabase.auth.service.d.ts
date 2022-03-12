@@ -62,4 +62,4 @@ export default class SupabaseAuthService {
         error: import("@supabase/supabase-js").ApiError | null;
     }>;
 }
-export { SupabaseAuthService };
+export { SupabaseAuthService, User };

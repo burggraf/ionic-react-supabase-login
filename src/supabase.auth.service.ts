@@ -200,4 +200,4 @@ export default class SupabaseAuthService {
   }
 }
 
-export { SupabaseAuthService };
+export { SupabaseAuthService, User };
