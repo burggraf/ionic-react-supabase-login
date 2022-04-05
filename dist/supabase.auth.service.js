@@ -186,6 +186,7 @@ var SupabaseAuthService = /** @class */ (function () {
         this.userListeners = this.profileListeners.filter(function (profileListeners) { return profileListeners.id !== id; });
     };
     SupabaseAuthService.prototype.updateUserListeners = function (user) {
+        console.log('*** updateUserListeners', SupabaseAuthService.userListeners);
         for (var i = 0; i < SupabaseAuthService.userListeners.length; i++) {
             SupabaseAuthService.userListeners[i].func(user);
         }
@@ -268,6 +269,7 @@ var SupabaseAuthService = /** @class */ (function () {
             id = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
         }
         _a.userListeners.push({ id: id, func: setFunc });
+        console.log('this.userListeners', _a.userListeners);
         return id;
     };
     SupabaseAuthService.subscribeProfile = function (setFunc, id) {
