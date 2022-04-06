@@ -54,7 +54,6 @@ export default class SupabaseAuthService {
       id = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
     }
     this.userListeners.push({ id, func: setFunc });
-    console.log('this.userListeners', this.userListeners);
     return id;
   }
   public static subscribeProfile = (setFunc: Function, id?:string) => {
@@ -76,7 +75,6 @@ export default class SupabaseAuthService {
     this.userListeners = this.profileListeners.filter(profileListeners => profileListeners.id !== id);
   }
   private updateUserListeners(user: User | null) {
-    console.log('*** updateUserListeners', SupabaseAuthService.userListeners);
     for (let i = 0; i < SupabaseAuthService.userListeners.length; i++) {
       SupabaseAuthService.userListeners[i].func(user);
     }
