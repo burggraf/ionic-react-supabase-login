@@ -90,9 +90,6 @@ var ProviderSignInButton = function (_a) {
                 case 0: return [4 /*yield*/, supabaseAuthService.signInWithProvider(provider)];
                 case 1:
                     _a = _b.sent(), user = _a.user, session = _a.session, error = _a.error;
-                    console.log('user', user);
-                    console.log('session', session);
-                    console.log('error', error);
                     if (error) {
                         toast(error.message);
                         setShowLoading(false);

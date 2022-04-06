@@ -49,7 +49,7 @@ const ProviderSignInButton: React.FC<ContainerProps> = ({ name, color, SUPABASE_
 	// const nameProperCase = name.charAt(0).toUpperCase() + name.slice(1)
 	// const history = useHistory()
 	const signInWithProvider = async (provider: Provider) => {
-		const { user, session, error } = await supabaseAuthService.signInWithProvider(provider);
+		const { /*user, session,*/ error } = await supabaseAuthService.signInWithProvider(provider);
 		if (error) {
 			toast(error.message);
 			setShowLoading(false);
